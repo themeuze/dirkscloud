@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="DCE logo">
+  <defs>
+    <radialGradient id="dceGlow" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#020617" stop-opacity="1" />
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#020617" />
+  <circle cx="32" cy="32" r="20" fill="url(#dceGlow)" stroke="#22d3ee" stroke-width="2" />
+  <text
+    x="32"
+    y="36"
+    text-anchor="middle"
+    font-family="JetBrains Mono, Fira Code, monospace"
+    font-size="12"
+    font-weight="700"
+    letter-spacing="1"
+    fill="#67e8f9"
+  >
+    DCE
+  </text>
+</svg>
