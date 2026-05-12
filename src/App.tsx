@@ -9,7 +9,7 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 
-/** Publiek contactadres (mailto + zichtbaar in UI). */
+/** Alleen voor mailto op de contact-CTA (niet als losse tekst op de pagina). */
 const CONTACT_EMAIL = 'mdirks@dirkscloud.nl'
 
 type Language = 'nl' | 'en'
