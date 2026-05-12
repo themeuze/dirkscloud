@@ -18,18 +18,18 @@ const translations = {
   nl: {
     nav: ['Home', 'Diensten', 'Over DCE', 'Contact'],
     heroLabel: 'Cloud Sovereignty / Agentic Operations',
-    heroTitle: 'Azure Architectuur. Security-First. AI-Driven Automation.',
+    heroTitle: 'Azure Funderingen. Kosten Onder Controle. AI-Gedreven Regie.',
     heroCopy:
-      "Dirks Cloud Engineering (DCE) ontwerpt en automatiseert Azure-funderingen. Wij implementeren Zero-Trust security, voeren rendabele FinOps-scans uit, en elimineren repetitief beheer via custom Python-agents. Gebouwd voor engineers en MSP's die controle eisen.",
-    ctaPrimary: 'Architectuur & Security Baseline',
+      "Dirks Cloud Engineering (DCE) stopt Azure-verspilling en dicht security-lekken. Wij bouwen onverwoestbare funderingen en vervangen handmatig beheer door slimme Python-agents die 24/7 over uw omgeving waken. Gebouwd voor organisaties die geen genoegen nemen met 'standaard' beheer.",
+    ctaPrimary: '> [Execute] Gratis 15-min Architectuur Review',
     ctaSecondary: 'Strategic Cloud Intake',
     servicesLabel: 'Security / FinOps / Automatisering',
     servicesTitle: 'Gebouwd voor engineers die aantoonbare controle nodig hebben.',
     agenticLabel: 'The Agentic Layer',
     agenticTitle: 'AI-agents die cloud-soevereiniteit borgen na go-live.',
-    contactTitle: 'Klaar om van cloud-gebruik naar cloud-regie te gaan?',
+    contactTitle: 'Klaar voor een ROI-gedreven Cloud Strategie?',
     contactCopy:
-      'Een gerichte verkenning van uw infrastructuur-uitdagingen. Geen sales-pitch, maar directe architecturale feedback.',
+      'Geen sales-pitch, maar directe architecturale feedback op uw grootste Azure-uitdaging. Ontdek binnen 15 minuten waar uw winstpunten liggen.',
     contactCta: 'Strategic Cloud Intake',
     footer: 'Architecturale Constanten. Resilient Operations. Industrial-grade Automation.',
     switchTo: 'Schakel naar Engels',
@@ -39,18 +39,18 @@ const translations = {
   en: {
     nav: ['Home', 'Services', 'About DCE', 'Contact'],
     heroLabel: 'Cloud Sovereignty / Agentic Operations',
-    heroTitle: 'Azure Architecture. Security-First. AI-Driven Automation.',
+    heroTitle: 'Azure Foundations. Cost Under Control. AI-Driven Command.',
     heroCopy:
-      "Dirks Cloud Engineering (DCE) designs and automates Azure foundations. We implement Zero-Trust security, run ROI-positive FinOps scans, and eliminate repetitive management via custom Python agents. Built for engineers and MSPs that require control.",
-    ctaPrimary: 'Architecture & Security Baseline',
+      "Dirks Cloud Engineering (DCE) stops Azure waste and closes security gaps. We build resilient foundations and replace manual operations with Python agents that watch your environment 24/7. Built for organizations that refuse 'standard' cloud babysitting.",
+    ctaPrimary: '> [Execute] Free 15-min Architecture Review',
     ctaSecondary: 'Strategic Cloud Intake',
     servicesLabel: 'Security / FinOps / Automation',
     servicesTitle: 'Built for engineers who need provable control.',
     agenticLabel: 'The Agentic Layer',
     agenticTitle: 'AI agents that maintain sovereignty after go-live.',
-    contactTitle: 'Ready to move from cloud usage to cloud command?',
+    contactTitle: 'Ready for an ROI-Driven Cloud Strategy?',
     contactCopy:
-      'A focused exploration of your infrastructure challenges. No sales pitch, just direct architectural feedback.',
+      'No sales pitch—direct architectural feedback on your biggest Azure challenge. In 15 minutes, see where your upside is.',
     contactCta: 'Strategic Cloud Intake',
     footer: 'Built engineer-first.',
     switchTo: 'Switch to Dutch',
@@ -64,8 +64,8 @@ const servicePillars = [
     id: '01',
     title: 'Azure Security & Governance',
     subtitle: {
-      nl: 'Immutable Governance & Blast Radius Reductie',
-      en: 'Immutable Governance & Blast Radius Reduction',
+      nl: 'Maximale Security: Voorkom dat één lek uw bedrijf platlegt.',
+      en: 'Maximum Security: One Breach Should Not Take Down Your Business.',
     },
     description: {
       nl: 'Zero Trust, RBAC, NSG-hardening en Entra ID Conditional Access als fundament. Dit reduceert blast radius en audit-risico structureel.',
@@ -86,12 +86,12 @@ const servicePillars = [
     id: '02',
     title: 'FinOps Scans',
     subtitle: {
-      nl: 'Capital Efficiency & Algoritmische Kostenbeheersing',
-      en: 'Capital Efficiency & Algorithmic Cost Control',
+      nl: 'Directe Kostenreductie: Stop onnodige Azure-verspilling.',
+      en: 'Direct Cost Reduction: Stop Pointless Azure Waste.',
     },
     description: {
-      nl: 'Directe ROI door eliminatie van idle compute en licentie-waste. We corrigeren SKU-keuzes en optimaliseren commit-strategieën zodat kosten de business-waarde volgen.',
-      en: 'Direct ROI by eliminating idle compute and license waste. We correct SKU choices and optimize commit strategies so cost tracks business value.',
+      nl: 'Directe ROI door eliminatie van idle compute en licentie-waste. We corrigeren SKU-keuzes en optimaliseren commit-strategieën zodat kosten de business-waarde volgen. Onze scans leveren vaak direct een besparing van 20% op door eliminatie van idle resources.',
+      en: 'Direct ROI by eliminating idle compute and license waste. We correct SKU choices and optimize commit strategies so cost tracks business value. Our scans often unlock around 20% savings by eliminating idle resources.',
     },
     tags: {
       nl: ['Waste Elimination', 'Right-sizing', 'Commit Strategy'],
@@ -108,8 +108,8 @@ const servicePillars = [
     id: '03',
     title: 'AI-Automation (AaaS)',
     subtitle: {
-      nl: 'Eliminatie van Menselijke Latentie',
-      en: 'Elimination of Human Latency',
+      nl: "24/7 Digitale Collega's: Eliminatie van handmatige fouten.",
+      en: '24/7 Digital Colleagues: Eliminate Costly Manual Mistakes.',
     },
     description: {
       nl: 'Industrial-grade Automation met Python, FastAPI en Bicep voor het automatiseren van MSP-operaties. Van onboarding tot remediation in herhaalbare runbooks.',
