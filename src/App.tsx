@@ -21,8 +21,8 @@ const translations = {
     heroTitle: 'Azure Architectuur. Security-First. AI-Driven Automation.',
     heroCopy:
       "Dirks Cloud Engineering (DCE) ontwerpt en automatiseert Azure-funderingen. Wij implementeren Zero-Trust security, voeren rendabele FinOps-scans uit, en elimineren repetitief beheer via custom Python-agents. Gebouwd voor engineers en MSP's die controle eisen.",
-    ctaPrimary: '> [Execute] Architectuur & Security Baseline',
-    ctaSecondary: '> [Request] Strategic Cloud Intake',
+    ctaPrimary: 'Architectuur & Security Baseline',
+    ctaSecondary: 'Strategic Cloud Intake',
     servicesLabel: 'Security / FinOps / Automatisering',
     servicesTitle: 'Gebouwd voor engineers die aantoonbare controle nodig hebben.',
     agenticLabel: 'The Agentic Layer',
@@ -30,7 +30,7 @@ const translations = {
     contactTitle: 'Klaar om van cloud-gebruik naar cloud-regie te gaan?',
     contactCopy:
       'Een gerichte verkenning van uw infrastructuur-uitdagingen. Geen sales-pitch, maar directe architecturale feedback.',
-    contactCta: '> [Request] Strategic Cloud Intake',
+    contactCta: 'Strategic Cloud Intake',
     footer: 'Architecturale Constanten. Resilient Operations. Industrial-grade Automation.',
     switchTo: 'Schakel naar Engels',
     switchIcon: '🇬🇧',
@@ -42,8 +42,8 @@ const translations = {
     heroTitle: 'Azure Architecture. Security-First. AI-Driven Automation.',
     heroCopy:
       "Dirks Cloud Engineering (DCE) designs and automates Azure foundations. We implement Zero-Trust security, run ROI-positive FinOps scans, and eliminate repetitive management via custom Python agents. Built for engineers and MSPs that require control.",
-    ctaPrimary: '> [Execute] Architecture & Security Baseline',
-    ctaSecondary: '> [Request] Strategic Cloud Intake',
+    ctaPrimary: 'Architecture & Security Baseline',
+    ctaSecondary: 'Strategic Cloud Intake',
     servicesLabel: 'Security / FinOps / Automation',
     servicesTitle: 'Built for engineers who need provable control.',
     agenticLabel: 'The Agentic Layer',
@@ -51,7 +51,7 @@ const translations = {
     contactTitle: 'Ready to move from cloud usage to cloud command?',
     contactCopy:
       'A focused exploration of your infrastructure challenges. No sales pitch, just direct architectural feedback.',
-    contactCta: '> [Request] Strategic Cloud Intake',
+    contactCta: 'Strategic Cloud Intake',
     footer: 'Built engineer-first.',
     switchTo: 'Switch to Dutch',
     switchIcon: '🇳🇱',
@@ -76,8 +76,8 @@ const servicePillars = [
       en: ['Zero Trust', 'Entra ID', 'Hardened Blueprints'],
     },
     cta: {
-      nl: '> [Audit] Entra ID & RBAC Assessment',
-      en: '> [Audit] Entra ID & RBAC Assessment',
+      nl: 'Entra ID & RBAC Assessment',
+      en: 'Entra ID & RBAC Assessment',
     },
     accent: 'cyan',
     Icon: ShieldCheck,
@@ -98,8 +98,8 @@ const servicePillars = [
       en: ['Waste Elimination', 'Right-sizing', 'Commit Strategy'],
     },
     cta: {
-      nl: '> [Scan] Azure Cost-Recovery Run',
-      en: '> [Scan] Azure Cost-Recovery Run',
+      nl: 'Azure Cost-Recovery Run',
+      en: 'Azure Cost-Recovery Run',
     },
     accent: 'emerald',
     Icon: Coins,
@@ -120,8 +120,8 @@ const servicePillars = [
       en: ['Python', 'FastAPI', 'Bicep IaC'],
     },
     cta: {
-      nl: '> [Deploy] Custom Python Runbook',
-      en: '> [Deploy] Custom Python Runbook',
+      nl: 'Custom Python Runbook',
+      en: 'Custom Python Runbook',
     },
     accent: 'cyan',
     Icon: Bot,
@@ -244,7 +244,7 @@ function App() {
             {agenticLayer.map((item) => (
               <article key={item.title} className="method-step">
                 <item.Icon size={18} className="method-icon" />
-                <h3 className="mono">&gt; {item.title}</h3>
+                <h3 className="mono">{item.title}</h3>
                 <p>{item.description[language]}</p>
               </article>
             ))}
