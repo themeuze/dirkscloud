@@ -21,7 +21,7 @@ const translations = {
     heroTitle: 'Azure Funderingen. Kosten Onder Controle. AI-Gedreven Regie.',
     heroCopy:
       "Dirks Cloud Engineering (DCE) stopt Azure-verspilling en dicht security-lekken. Wij bouwen onverwoestbare funderingen en vervangen handmatig beheer door slimme Python-agents die 24/7 over uw omgeving waken. Gebouwd voor organisaties die geen genoegen nemen met 'standaard' beheer.",
-    ctaPrimary: '> [Execute] Gratis 15-min Architectuur Review',
+    ctaPrimary: 'Gratis 15-min Architectuur Review',
     ctaSecondary: 'Strategic Cloud Intake',
     servicesLabel: 'Security / FinOps / Automatisering',
     servicesTitle: 'Gebouwd voor engineers die aantoonbare controle nodig hebben.',
@@ -42,7 +42,7 @@ const translations = {
     heroTitle: 'Azure Foundations. Cost Under Control. AI-Driven Command.',
     heroCopy:
       "Dirks Cloud Engineering (DCE) stops Azure waste and closes security gaps. We build resilient foundations and replace manual operations with Python agents that watch your environment 24/7. Built for organizations that refuse 'standard' cloud babysitting.",
-    ctaPrimary: '> [Execute] Free 15-min Architecture Review',
+    ctaPrimary: 'Free 15-min Architecture Review',
     ctaSecondary: 'Strategic Cloud Intake',
     servicesLabel: 'Security / FinOps / Automation',
     servicesTitle: 'Built for engineers who need provable control.',
