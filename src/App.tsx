@@ -254,9 +254,6 @@ function App() {
         <section id="contact" className="contact">
           <h2 className="section-title-tight">{t.contactTitle}</h2>
           <p>{t.contactCopy}</p>
-          <p className="mono muted contact-email-line">
-            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-          </p>
           <a href={`mailto:${CONTACT_EMAIL}`} className="primary-button mono">
             {t.contactCta}
           </a>
