@@ -17,42 +17,44 @@ type Language = 'nl' | 'en'
 const translations = {
   nl: {
     nav: ['Home', 'Diensten', 'Over DCE', 'Contact'],
-    heroLabel: 'Cloud Sovereignty / Agentic Operations',
-    heroTitle: 'Azure Funderingen. Kosten Onder Controle. AI-Gedreven Regie.',
+    heroLabel: 'Veiligheid · Kosten · Automatisering',
+    heroTitle: 'Uw Azure Cloud: Veilig, Betaalbaar en Zorgeloos.',
     heroCopy:
-      "Dirks Cloud Engineering (DCE) stopt Azure-verspilling en dicht security-lekken. Wij bouwen onverwoestbare funderingen en vervangen handmatig beheer door slimme Python-agents die 24/7 over uw omgeving waken. Gebouwd voor organisaties die geen genoegen nemen met 'standaard' beheer.",
-    ctaPrimary: 'Gratis 15-min Architectuur Review',
-    ctaSecondary: 'Strategic Cloud Intake',
-    servicesLabel: 'Security / FinOps / Automatisering',
-    servicesTitle: 'Gebouwd voor engineers die aantoonbare controle nodig hebben.',
-    agenticLabel: 'The Agentic Layer',
-    agenticTitle: 'AI-agents die cloud-soevereiniteit borgen na go-live.',
-    contactTitle: 'Klaar voor een ROI-gedreven Cloud Strategie?',
+      'Dirks Cloud Engineering helpt MKB en partners met Microsoft Azure: minder risico op datalekken, grip op maandkosten en minder handwerk in uw IT-beheer. Wij praten mee op uw niveau en leveren concrete vervolgstappen.',
+    ctaPrimary: 'Vraag een kosteloze Cloud Check aan',
+    ctaSecondary: 'Plan een kennismaking',
+    servicesLabel: 'Veiligheid, kosten en automatisering',
+    servicesTitle: 'Drie aandachtsgebieden waar uw organisatie direct profijt van heeft',
+    agenticLabel: 'Hoe wij samenwerken',
+    agenticTitle: 'Helder advies, zonder onnodig jargon',
+    contactTitle: 'Klaar voor een cloudomgeving die voor u werkt?',
     contactCopy:
-      'Geen sales-pitch, maar directe architecturale feedback op uw grootste Azure-uitdaging. Ontdek binnen 15 minuten waar uw winstpunten liggen.',
-    contactCta: 'Strategic Cloud Intake',
-    footer: 'Architecturale Constanten. Resilient Operations. Industrial-grade Automation.',
+      'Geen ingewikkelde verhalen, maar direct inzicht in uw verbeterpunten. Laten we in 15 minuten kijken waar uw winst ligt.',
+    contactCta: 'Vraag een kennismaking aan',
+    footer: 'Persoonlijk Azure-advies voor MKB en partners.',
+    footerSub: 'Heldere afspraken, duidelijke communicatie.',
     switchTo: 'Schakel naar Engels',
     switchIcon: '🇬🇧',
     switchText: 'English',
   },
   en: {
     nav: ['Home', 'Services', 'About DCE', 'Contact'],
-    heroLabel: 'Cloud Sovereignty / Agentic Operations',
-    heroTitle: 'Azure Foundations. Cost Under Control. AI-Driven Command.',
+    heroLabel: 'Security · Cost control · Automation',
+    heroTitle: 'Your Azure Cloud: Safe, Affordable, and Worry-Free.',
     heroCopy:
-      "Dirks Cloud Engineering (DCE) stops Azure waste and closes security gaps. We build resilient foundations and replace manual operations with Python agents that watch your environment 24/7. Built for organizations that refuse 'standard' cloud babysitting.",
-    ctaPrimary: 'Free 15-min Architecture Review',
-    ctaSecondary: 'Strategic Cloud Intake',
-    servicesLabel: 'Security / FinOps / Automation',
-    servicesTitle: 'Built for engineers who need provable control.',
-    agenticLabel: 'The Agentic Layer',
-    agenticTitle: 'AI agents that maintain sovereignty after go-live.',
-    contactTitle: 'Ready for an ROI-Driven Cloud Strategy?',
+      'Dirks Cloud Engineering helps SMBs and partners with Microsoft Azure: lower risk of data leaks, clearer monthly spend, and less manual IT work. We speak your language and leave you with practical next steps.',
+    ctaPrimary: 'Request a free Cloud Check',
+    ctaSecondary: 'Book an introductory call',
+    servicesLabel: 'Security, cost control, and automation',
+    servicesTitle: 'Three areas where your organization gains quickly',
+    agenticLabel: 'How we work with you',
+    agenticTitle: 'Clear guidance without unnecessary jargon',
+    contactTitle: 'Ready for a cloud environment that works for you?',
     contactCopy:
-      'No sales pitch—direct architectural feedback on your biggest Azure challenge. In 15 minutes, see where your upside is.',
-    contactCta: 'Strategic Cloud Intake',
-    footer: 'Built engineer-first.',
+      'No complicated stories—just clear insight into where you can improve. In 15 minutes, we can explore where your upside is.',
+    contactCta: 'Request an introductory call',
+    footer: 'Hands-on Azure guidance for SMBs and partners.',
+    footerSub: 'Straightforward agreements and plain communication.',
     switchTo: 'Switch to Dutch',
     switchIcon: '🇳🇱',
     switchText: 'Nederlands',
@@ -62,66 +64,75 @@ const translations = {
 const servicePillars = [
   {
     id: '01',
-    title: 'Azure Security & Governance',
+    title: {
+      nl: 'Beveiliging & continuïteit',
+      en: 'Security & continuity',
+    },
     subtitle: {
-      nl: 'Maximale Security: Voorkom dat één lek uw bedrijf platlegt.',
-      en: 'Maximum Security: One Breach Should Not Take Down Your Business.',
+      nl: 'Bedrijfscontinuïteit: Uw bedrijfsdata is altijd veilig en beschikbaar.',
+      en: 'Business continuity: your company data stays safe and available.',
     },
     description: {
-      nl: 'Zero Trust, RBAC, NSG-hardening en Entra ID Conditional Access als fundament. Dit reduceert blast radius en audit-risico structureel.',
-      en: 'Zero Trust, RBAC, NSG hardening, and Entra ID Conditional Access as the foundation. This structurally reduces blast radius and audit risk.',
+      nl: 'Wij dichten de lekken voordat ze een probleem worden.',
+      en: 'We close gaps before they become incidents.',
     },
     tags: {
-      nl: ['Zero Trust', 'Entra ID', 'Hardened Blueprints'],
-      en: ['Zero Trust', 'Entra ID', 'Hardened Blueprints'],
+      nl: ['Data veilig', 'Proactief', 'Helder advies'],
+      en: ['Data safety', 'Proactive', 'Clear advice'],
     },
     cta: {
-      nl: 'Entra ID & RBAC Assessment',
-      en: 'Entra ID & RBAC Assessment',
+      nl: 'Meer over beveiliging',
+      en: 'Learn more about security',
     },
     accent: 'cyan',
     Icon: ShieldCheck,
   },
   {
     id: '02',
-    title: 'FinOps Scans',
+    title: {
+      nl: 'Kosten en licenties',
+      en: 'Costs and licensing',
+    },
     subtitle: {
-      nl: 'Directe Kostenreductie: Stop onnodige Azure-verspilling.',
-      en: 'Direct Cost Reduction: Stop Pointless Azure Waste.',
+      nl: 'Kostenbeheersing: Stop de verspilling van uw IT-budget.',
+      en: 'Cost control: stop wasting your IT budget.',
     },
     description: {
-      nl: 'Directe ROI door eliminatie van idle compute en licentie-waste. We corrigeren SKU-keuzes en optimaliseren commit-strategieën zodat kosten de business-waarde volgen. Onze scans leveren vaak direct een besparing van 20% op door eliminatie van idle resources.',
-      en: 'Direct ROI by eliminating idle compute and license waste. We correct SKU choices and optimize commit strategies so cost tracks business value. Our scans often unlock around 20% savings by eliminating idle resources.',
+      nl: 'Wij optimaliseren uw licenties en resources voor een lagere maandfactuur.',
+      en: 'We tune licenses and resources so your monthly bill reflects what you really need.',
     },
     tags: {
-      nl: ['Waste Elimination', 'Right-sizing', 'Commit Strategy'],
-      en: ['Waste Elimination', 'Right-sizing', 'Commit Strategy'],
+      nl: ['Lagere factuur', 'Overzicht', 'Slimmer inkopen'],
+      en: ['Lower bill', 'Transparency', 'Smarter buying'],
     },
     cta: {
-      nl: 'Azure Cost-Recovery Run',
-      en: 'Azure Cost-Recovery Run',
+      nl: 'Meer over kosten',
+      en: 'Learn more about costs',
     },
     accent: 'emerald',
     Icon: Coins,
   },
   {
     id: '03',
-    title: 'AI-Automation (AaaS)',
+    title: {
+      nl: 'Automatisering',
+      en: 'Automation',
+    },
     subtitle: {
-      nl: "24/7 Digitale Collega's: Eliminatie van handmatige fouten.",
-      en: '24/7 Digital Colleagues: Eliminate Costly Manual Mistakes.',
+      nl: 'Efficiëntie: Wij automatiseren repetitieve IT-taken.',
+      en: 'Efficiency: we automate repetitive IT tasks.',
     },
     description: {
-      nl: 'Industrial-grade Automation met Python, FastAPI en Bicep voor het automatiseren van MSP-operaties. Van onboarding tot remediation in herhaalbare runbooks.',
-      en: 'Industrial-grade automation with Python, FastAPI, and Bicep for automating MSP operations. From onboarding to remediation in repeatable runbooks.',
+      nl: 'Dat bespaart tijd, voorkomt menselijke fouten en verhoogt de snelheid.',
+      en: 'That saves time, reduces human error, and speeds up delivery.',
     },
     tags: {
-      nl: ['Python', 'FastAPI', 'Bicep IaC'],
-      en: ['Python', 'FastAPI', 'Bicep IaC'],
+      nl: ['Tijdwinst', 'Minder fouten', 'Sneller schakelen'],
+      en: ['Time saved', 'Fewer mistakes', 'Faster turnaround'],
     },
     cta: {
-      nl: 'Custom Python Runbook',
-      en: 'Custom Python Runbook',
+      nl: 'Meer over automatisering',
+      en: 'Learn more about automation',
     },
     accent: 'cyan',
     Icon: Bot,
@@ -130,26 +141,35 @@ const servicePillars = [
 
 const agenticLayer = [
   {
-    title: 'RUN FinOps_Agents',
+    title: {
+      nl: 'Grip op uw cloudkosten',
+      en: 'Control over cloud spend',
+    },
     description: {
-      nl: '24/7 Anomaly detection.',
-      en: '24/7 Anomaly detection.',
+      nl: 'We brengen in kaart waar geld blijft hangen en helpen u keuzes maken die u op de factuur terugziet.',
+      en: 'We map where money is left on the table and help you make choices you can see on the invoice.',
     },
     Icon: ScanSearch,
   },
   {
-    title: 'RUN Security_Sentinels',
+    title: {
+      nl: 'Veiligheid die past bij uw bedrijf',
+      en: 'Security that fits your business',
+    },
     description: {
-      nl: 'Instant Policy-drift remediation.',
-      en: 'Instant Policy-drift remediation.',
+      nl: 'Concreet advies en verbeteringen, zodat risico’s voor u begrijpelijk worden en aanpakbaar.',
+      en: 'Practical guidance and fixes so risks become understandable and actionable.',
     },
     Icon: Radar,
   },
   {
-    title: 'RUN Governance_Bots',
+    title: {
+      nl: 'Minder handwerk, meer rust',
+      en: 'Less manual work, more calm',
+    },
     description: {
-      nl: 'Auto-tagging & Lifecycle enforcement.',
-      en: 'Auto-tagging & Lifecycle enforcement.',
+      nl: 'Waar het kan, nemen vaste routines repetitieve taken over, zodat uw team tijd houdt voor groei.',
+      en: 'Where it makes sense, repeatable routines take over repetitive work so your team can focus on growth.',
     },
     Icon: UserCheck,
   },
@@ -171,7 +191,7 @@ function App() {
           Dirks Cloud Engineering
         </a>
         <div className="header-controls">
-          <a href="#diensten" className="header-cta mono">
+          <a href="#diensten" className="header-cta">
             {t.ctaPrimary}
           </a>
           <button
@@ -199,10 +219,10 @@ function App() {
           <h1>{t.heroTitle}</h1>
           <p className="hero-copy">{t.heroCopy}</p>
           <div className="hero-cta-group">
-            <a href="#diensten" className="primary-button mono">
+            <a href="#diensten" className="primary-button">
               {t.ctaPrimary}
             </a>
-            <a href="#contact" className="secondary-button mono">
+            <a href="#contact" className="secondary-button">
               {t.ctaSecondary}
             </a>
           </div>
@@ -215,11 +235,11 @@ function App() {
             {servicePillars.map((pillar) => (
               <article key={pillar.id} className="service-card">
                 <div className="service-top">
-                  <span className="mono muted">[{pillar.id}]</span>
+                  <span className="mono muted">{pillar.id}</span>
                   <pillar.Icon size={16} className={`service-icon ${pillar.accent}`} />
                   <span className={`accent-dot ${pillar.accent}`} />
                 </div>
-                <h3>{pillar.title}</h3>
+                <h3>{pillar.title[language]}</h3>
                 <p className="service-subtitle">{pillar.subtitle[language]}</p>
                 <p className="service-description">{pillar.description[language]}</p>
                 <div className="tag-row">
@@ -229,7 +249,7 @@ function App() {
                     </span>
                   ))}
                 </div>
-                <a href="#contact" className="terminal-cta mono">
+                <a href="#contact" className="terminal-cta">
                   {pillar.cta[language]}
                 </a>
               </article>
@@ -242,9 +262,9 @@ function App() {
           <h2 className="section-title-tight">{t.agenticTitle}</h2>
           <div className="method-grid">
             {agenticLayer.map((item) => (
-              <article key={item.title} className="method-step">
+              <article key={item.title.nl} className="method-step">
                 <item.Icon size={18} className="method-icon" />
-                <h3 className="mono">{item.title}</h3>
+                <h3>{item.title[language]}</h3>
                 <p>{item.description[language]}</p>
               </article>
             ))}
@@ -254,7 +274,7 @@ function App() {
         <section id="contact" className="contact">
           <h2 className="section-title-tight">{t.contactTitle}</h2>
           <p>{t.contactCopy}</p>
-          <a href={`mailto:${CONTACT_EMAIL}`} className="primary-button mono">
+          <a href={`mailto:${CONTACT_EMAIL}`} className="primary-button">
             {t.contactCta}
           </a>
         </section>
@@ -264,7 +284,7 @@ function App() {
         <p>
           &copy; {new Date().getFullYear()} Dirks Cloud Engineering. {t.footer}
         </p>
-        <p className="mono terminal-prompt">DCE.System: Operational | Logic: AI-Agentic</p>
+        <p className="footer-sub">{t.footerSub}</p>
       </footer>
     </div>
   )
