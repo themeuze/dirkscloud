@@ -7,7 +7,8 @@ import {
   ShieldCheck,
   UserCheck,
 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { TermsAndConditions } from './TermsAndConditions'
 
 /** Alleen voor mailto op de contact-CTA (niet als losse tekst op de pagina). */
 const CONTACT_EMAIL = 'mdirks@dirkscloud.nl'
@@ -33,6 +34,8 @@ const translations = {
     contactCta: 'Vraag een kennismaking aan',
     footer: 'Persoonlijk Azure-advies voor MKB en partners.',
     footerSub: 'Heldere afspraken, duidelijke communicatie.',
+    termsLink: 'Algemene Voorwaarden',
+    backHome: 'Terug naar home',
     switchTo: 'Schakel naar Engels',
     switchIcon: '🇬🇧',
     switchText: 'English',
@@ -55,6 +58,8 @@ const translations = {
     contactCta: 'Request an introductory call',
     footer: 'Hands-on Azure guidance for SMBs and partners.',
     footerSub: 'Straightforward agreements and plain communication.',
+    termsLink: 'General terms and conditions',
+    backHome: 'Back to home',
     switchTo: 'Switch to Dutch',
     switchIcon: '🇳🇱',
     switchText: 'Nederlands',
@@ -175,10 +180,30 @@ const agenticLayer = [
   },
 ]
 
+function readTermsView(): boolean {
+  if (typeof window === 'undefined') return false
+  return window.location.hash === '#voorwaarden'
+}
+
 function App() {
   const [language, setLanguage] = useState<Language>('nl')
+  const [showTerms, setShowTerms] = useState(readTermsView)
   const t = translations[language]
   const isDutch = language === 'nl'
+
+  useEffect(() => {
+    const onHashChange = () => {
+      setShowTerms(readTermsView())
+    }
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
+
+  useEffect(() => {
+    if (showTerms) {
+      window.scrollTo(0, 0)
+    }
+  }, [showTerms])
 
   return (
     <div className="page-shell">
@@ -214,73 +239,90 @@ function App() {
       </header>
 
       <main className="container">
-        <section id="home" className="hero">
-          <p className="mono section-label">{t.heroLabel}</p>
-          <h1>{t.heroTitle}</h1>
-          <p className="hero-copy">{t.heroCopy}</p>
-          <div className="hero-cta-group">
-            <a href="#diensten" className="primary-button">
-              {t.ctaPrimary}
-            </a>
-            <a href="#contact" className="secondary-button">
-              {t.ctaSecondary}
-            </a>
+        {showTerms ? (
+          <div className="terms-wrap">
+            <TermsAndConditions backLabel={t.backHome} />
           </div>
-        </section>
-
-        <section id="diensten" className="services">
-          <p className="mono section-label">{t.servicesLabel}</p>
-          <h2 className="section-title-tight">{t.servicesTitle}</h2>
-          <div className="service-grid">
-            {servicePillars.map((pillar) => (
-              <article key={pillar.id} className="service-card">
-                <div className="service-top">
-                  <span className="mono muted">{pillar.id}</span>
-                  <pillar.Icon size={16} className={`service-icon ${pillar.accent}`} />
-                  <span className={`accent-dot ${pillar.accent}`} />
-                </div>
-                <h3>{pillar.title[language]}</h3>
-                <p className="service-subtitle">{pillar.subtitle[language]}</p>
-                <p className="service-description">{pillar.description[language]}</p>
-                <div className="tag-row">
-                  {pillar.tags[language].map((tag) => (
-                    <span key={tag} className={`tag ${pillar.accent}`}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <a href="#contact" className="terminal-cta">
-                  {pillar.cta[language]}
+        ) : (
+          <>
+            <section id="home" className="hero">
+              <p className="mono section-label">{t.heroLabel}</p>
+              <h1>{t.heroTitle}</h1>
+              <p className="hero-copy">{t.heroCopy}</p>
+              <div className="hero-cta-group">
+                <a href="#diensten" className="primary-button">
+                  {t.ctaPrimary}
                 </a>
-              </article>
-            ))}
-          </div>
-        </section>
+                <a href="#contact" className="secondary-button">
+                  {t.ctaSecondary}
+                </a>
+              </div>
+            </section>
 
-        <section id="over" className="method">
-          <p className="mono section-label">{t.agenticLabel}</p>
-          <h2 className="section-title-tight">{t.agenticTitle}</h2>
-          <div className="method-grid">
-            {agenticLayer.map((item) => (
-              <article key={item.title.nl} className="method-step">
-                <item.Icon size={18} className="method-icon" />
-                <h3>{item.title[language]}</h3>
-                <p>{item.description[language]}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+            <section id="diensten" className="services">
+              <p className="mono section-label">{t.servicesLabel}</p>
+              <h2 className="section-title-tight">{t.servicesTitle}</h2>
+              <div className="service-grid">
+                {servicePillars.map((pillar) => (
+                  <article key={pillar.id} className="service-card">
+                    <div className="service-top">
+                      <span className="mono muted">{pillar.id}</span>
+                      <pillar.Icon size={16} className={`service-icon ${pillar.accent}`} />
+                      <span className={`accent-dot ${pillar.accent}`} />
+                    </div>
+                    <h3>{pillar.title[language]}</h3>
+                    <p className="service-subtitle">{pillar.subtitle[language]}</p>
+                    <p className="service-description">{pillar.description[language]}</p>
+                    <div className="tag-row">
+                      {pillar.tags[language].map((tag) => (
+                        <span key={tag} className={`tag ${pillar.accent}`}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <a href="#contact" className="terminal-cta">
+                      {pillar.cta[language]}
+                    </a>
+                  </article>
+                ))}
+              </div>
+            </section>
 
-        <section id="contact" className="contact">
-          <h2 className="section-title-tight">{t.contactTitle}</h2>
-          <p>{t.contactCopy}</p>
-          <a href={`mailto:${CONTACT_EMAIL}`} className="primary-button">
-            {t.contactCta}
-          </a>
-        </section>
+            <section id="over" className="method">
+              <p className="mono section-label">{t.agenticLabel}</p>
+              <h2 className="section-title-tight">{t.agenticTitle}</h2>
+              <div className="method-grid">
+                {agenticLayer.map((item) => (
+                  <article key={item.title.nl} className="method-step">
+                    <item.Icon size={18} className="method-icon" />
+                    <h3>{item.title[language]}</h3>
+                    <p>{item.description[language]}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section id="contact" className="contact">
+              <h2 className="section-title-tight">{t.contactTitle}</h2>
+              <p>{t.contactCopy}</p>
+              <a href={`mailto:${CONTACT_EMAIL}`} className="primary-button">
+                {t.contactCta}
+              </a>
+            </section>
+          </>
+        )}
       </main>
 
       <footer className="footer container">
+        <nav className="footer-nav" aria-label={isDutch ? 'Juridisch' : 'Legal'}>
+          <a
+            href="#voorwaarden"
+            className={showTerms ? 'footer-terms footer-terms-current' : 'footer-terms'}
+            aria-current={showTerms ? 'page' : undefined}
+          >
+            {t.termsLink}
+          </a>
+        </nav>
         <p>
           &copy; {new Date().getFullYear()} Dirks Cloud Engineering. {t.footer}
         </p>
