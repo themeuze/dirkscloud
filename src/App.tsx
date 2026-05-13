@@ -241,7 +241,7 @@ function App() {
       <main className="container">
         {showTerms ? (
           <div className="terms-wrap">
-            <TermsAndConditions backLabel={t.backHome} />
+            <TermsAndConditions backLabel={t.backHome} language={language} />
           </div>
         ) : (
           <>
