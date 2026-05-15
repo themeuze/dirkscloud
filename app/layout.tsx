@@ -33,6 +33,10 @@ export const metadata: Metadata = {
     locale: 'nl_NL',
     type: 'website',
   },
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+  },
 }
 
 export const viewport: Viewport = {
