@@ -59,9 +59,10 @@ function validateForm(data: FormData, t: (typeof contactFormContent)['nl']): For
 
 type ContactFormProps = {
   language: Language
+  onSuccess?: () => void
 }
 
-export function ContactForm({ language }: ContactFormProps) {
+export function ContactForm({ language, onSuccess }: ContactFormProps) {
   const t = contactFormContent[language]
   const [formData, setFormData] = useState<FormData>(initialFormData)
   const [errors, setErrors] = useState<FormErrors>({})
@@ -127,6 +128,7 @@ export function ContactForm({ language }: ContactFormProps) {
       setFormData(initialFormData)
       setErrors({})
       setTouched({})
+      onSuccess?.()
     } catch {
       setStatus('error')
     }

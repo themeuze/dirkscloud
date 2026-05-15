@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import { LanguageSwitcher } from '@/app/components/LanguageSwitcher'
 import { useLanguage } from '@/app/providers/LanguageProvider'
@@ -10,6 +11,8 @@ import { homeContent } from '@/lib/i18n/content'
 export function HomePage() {
   const { language } = useLanguage()
   const t = homeContent[language]
+  const [contactSent, setContactSent] = useState(false)
+
   return (
     <div className="min-h-screen bg-slate-50">
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-md">
@@ -109,10 +112,14 @@ export function HomePage() {
         <section id="contact" className="py-16 sm:py-20">
           <div className="site-container">
             <div className="card ring-1 ring-[#0078d4]/10">
-              <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">{t.contactTitle}</h2>
-              <p className="mt-4 text-slate-600">{t.contactSubtitle}</p>
-              <div className="mt-8 border-t border-slate-200 pt-8">
-                <ContactForm language={language} />
+              {!contactSent && (
+                <>
+                  <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">{t.contactTitle}</h2>
+                  <p className="mt-4 text-slate-600">{t.contactSubtitle}</p>
+                </>
+              )}
+              <div className={contactSent ? '' : 'mt-8 border-t border-slate-200 pt-8'}>
+                <ContactForm language={language} onSuccess={() => setContactSent(true)} />
               </div>
             </div>
           </div>
