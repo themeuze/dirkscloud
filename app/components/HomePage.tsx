@@ -3,14 +3,13 @@
 import Link from 'next/link'
 import { LanguageSwitcher } from '@/app/components/LanguageSwitcher'
 import { useLanguage } from '@/app/providers/LanguageProvider'
-import { CONTACT_EMAIL, KVK } from '@/lib/constants'
+import { ContactForm } from '@/app/components/ContactForm'
+import { KVK } from '@/lib/constants'
 import { homeContent } from '@/lib/i18n/content'
 
 export function HomePage() {
   const { language } = useLanguage()
   const t = homeContent[language]
-  const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t.mailSubject)}`
-
   return (
     <div className="min-h-screen bg-slate-50">
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-md">
@@ -112,13 +111,9 @@ export function HomePage() {
             <div className="card max-w-2xl ring-1 ring-[#0078d4]/10">
               <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">{t.contactTitle}</h2>
               <p className="mt-4 text-slate-600">{t.contactSubtitle}</p>
-              <a
-                href={mailto}
-                className="btn-primary mt-8 inline-flex text-sm"
-                style={{ fontFamily: 'var(--font-mono)' }}
-              >
-                {t.contactCta}
-              </a>
+              <div className="mx-auto mt-8 w-full max-w-md">
+                <ContactForm language={language} />
+              </div>
             </div>
           </div>
         </section>
