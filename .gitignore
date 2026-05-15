@@ -32,3 +32,8 @@ pnpm-debug.log*
 # Env
 .env
 .env*.local
+api/local.settings.json
+api/dist
+
+# Azure Functions
+api/node_modules
