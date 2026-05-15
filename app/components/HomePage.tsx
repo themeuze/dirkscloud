@@ -108,7 +108,7 @@ export function HomePage() {
 
         <section id="contact" className="py-16 sm:py-20">
           <div className="site-container">
-            <div className="card max-w-2xl ring-1 ring-[#0078d4]/10">
+            <div className="card ring-1 ring-[#0078d4]/10">
               <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">{t.contactTitle}</h2>
               <p className="mt-4 text-slate-600">{t.contactSubtitle}</p>
               <div className="mt-8 border-t border-slate-200 pt-8">
