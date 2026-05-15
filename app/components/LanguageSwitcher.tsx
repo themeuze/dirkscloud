@@ -7,7 +7,7 @@ export function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage()
 
   return (
-    <div className="lang-switch" role="group" aria-label="Taal / Language">
+    <div className="lang-switch" role="group" aria-label="Language">
       {(['nl', 'en'] as Language[]).map((code) => (
         <button
           key={code}
@@ -15,7 +15,7 @@ export function LanguageSwitcher() {
           onClick={() => setLanguage(code)}
           aria-pressed={language === code}
         >
-          {code}
+          {code.toUpperCase()}
         </button>
       ))}
     </div>

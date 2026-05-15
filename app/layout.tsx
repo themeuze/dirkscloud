@@ -19,15 +19,15 @@ const siteUrl = 'https://dirkscloud.nl'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Dirks Cloud Engineering | Hands-on Azure Beheer',
+  title: 'Dirks Cloud Engineering | Azure Cloud & Python AI',
   description:
-    'Hands-on Azure beheer en implementatie — direct inzetbaar. Extra capaciteit voor netwerk, identiteit, compute en monitoring.',
+    'ZZP Azure Cloud Engineering en Python AI — senior ICT-expertise, direct inzetbaar. Architectuur, security, automatisering en Azure OpenAI.',
   robots: { index: true, follow: true },
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Dirks Cloud Engineering',
     description:
-      'Hands-on Azure Beheer & Implementatie — direct inzetbaar wanneer u extra capaciteit nodig heeft.',
+      'ZZP specialist voor Microsoft Azure en intelligente automatisering met Python en AI — helder, betrouwbaar en direct inzetbaar.',
     url: siteUrl,
     siteName: 'Dirks Cloud Engineering',
     locale: 'nl_NL',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#000000',
+  themeColor: '#f8fafc',
   width: 'device-width',
   initialScale: 1,
 }
@@ -52,7 +52,7 @@ export default function RootLayout({
         <noscript>
           <div className="noscript-fallback">
             <p>
-              Dirks Cloud Engineering — Hands-on Azure Beheer &amp; Implementatie. Mail{' '}
+              Dirks Cloud Engineering — Azure Cloud Engineering &amp; Python AI. Mail{' '}
               <a href="mailto:mdirks@dirkscloud.nl">mdirks@dirkscloud.nl</a>.
             </p>
           </div>
