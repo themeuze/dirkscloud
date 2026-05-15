@@ -24,6 +24,58 @@ body {
   font-family: var(--font-mono);
 }
 
+.site-container {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .site-container {
+    padding-inline: 2.5rem;
+  }
+}
+
+.btn-cta {
+  display: inline-block;
+  border: 2px solid var(--color-accent);
+  background-color: var(--color-accent);
+  color: var(--color-fg);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.25;
+}
+
+.btn-cta:hover {
+  background-color: var(--color-fg);
+  color: var(--color-bg);
+  border-color: var(--color-fg);
+}
+
+.btn-cta-outline {
+  display: inline-block;
+  border: 2px solid var(--color-fg);
+  background-color: transparent;
+  color: var(--color-fg);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.25;
+}
+
+.btn-cta-outline:hover {
+  background-color: var(--color-fg);
+  color: var(--color-bg);
+}
+
 .noscript-fallback {
   max-width: 56rem;
   margin: 2rem auto;
