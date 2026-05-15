@@ -1,0 +1,18 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --color-surface: #0b1120;
+  --color-surface-elevated: #111827;
+  --color-border: #1e293b;
+  --color-muted: #94a3b8;
+  --color-accent: #38bdf8;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-[var(--color-surface)] text-slate-100 antialiased;
+}
