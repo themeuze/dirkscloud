@@ -2,11 +2,11 @@
 
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --color-surface: #0b1120;
-  --color-surface-elevated: #111827;
-  --color-border: #1e293b;
-  --color-muted: #94a3b8;
-  --color-accent: #38bdf8;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --color-bg: #000000;
+  --color-fg: #ffffff;
+  --color-border: #404040;
+  --color-accent: #0078d4;
 }
 
 html {
@@ -14,16 +14,25 @@ html {
 }
 
 body {
-  @apply bg-[var(--color-surface)] text-slate-100 antialiased;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-mono-tech {
+  font-family: var(--font-mono);
 }
 
 .noscript-fallback {
-  max-width: 48rem;
+  max-width: 56rem;
   margin: 2rem auto;
   padding: 0 1.5rem;
   line-height: 1.6;
+  border: 1px solid var(--color-border);
 }
 
 .noscript-fallback a {
   color: var(--color-accent);
+  text-decoration: underline;
 }

@@ -1,131 +1,135 @@
 const CONTACT_EMAIL = 'mdirks@dirkscloud.nl'
-const KVK = '—' // Vul uw KvK-nummer in
 
-const challenge = {
-  title: 'De uitdaging',
-  body: 'Azure-omgevingen groeien sneller dan de capaciteit om ze te beheren. Escalaties in de derde lijn, security-compliance (CIS, Zero Trust) en onverwachte cloudkosten raken MSP\'s en MKB waar de interne expertise tekortschiet.',
-}
-
-const solution = {
-  title: 'De oplossing',
-  paragraphs: [
-    '28 jaar diepgaande ICT-ervaring, vertaald naar flexibele, hoogwaardige Azure-expertise op uurbasis — zonder de overhead van een groot consultancykantoor.',
-    'Vaste beschikbaarheid voor synchroon overleg en afstemming: elke maandag. Overige dagen worden werkzaamheden efficiënt en asynchroon uitgevoerd.',
-  ],
-}
-
-const expertise = [
+const capabilities = [
   {
-    title: 'Azure Security & Governance',
-    description:
-      'Zero Trust, CIS-benchmarks en beleid dat past bij uw organisatie — praktisch en controleerbaar.',
+    title: 'Netwerk & Connectiviteit:',
+    body: (
+      <>
+        Aanleggen en troubleshooten van virtuele netwerken (<Mono>VNETs</Mono>), peering,{' '}
+        <Mono>VPN-gateways</Mono> en veilige on-premises koppelingen.
+      </>
+    ),
   },
   {
-    title: 'Azure FinOps & Optimalisatie',
-    description:
-      'Inzicht in verbruik, licenties en kostenstructuren. Advies dat u terugziet op de factuur.',
+    title: 'Identiteit & Toegangsbeheer:',
+    body: (
+      <>
+        Strak trekken van <Mono>Entra ID</Mono> (voorheen <Mono>Azure AD</Mono>). Rollen en rechten (
+        <Mono>RBAC</Mono>) correct instellen en de basis van uw identity &amp; access management
+        borgen.
+      </>
+    ),
   },
   {
-    title: 'Derdelijns Troubleshooting & Escalatie',
-    description:
-      'Diepgaande analyse van complexe incidenten wanneer de eerste en tweede lijn vastlopen.',
+    title: 'Infrastructuur & Compute:',
+    body: (
+      <>
+        Uitrollen, configureren en schalen van Virtuele Machines (<Mono>VM&apos;s</Mono>) en{' '}
+        <Mono>App Services</Mono>.
+      </>
+    ),
+  },
+  {
+    title: 'Opslag, Back-up & Monitoring:',
+    body: (
+      <>
+        Inrichten van <Mono>Storage Accounts</Mono>, zorgen dat de Azure Back-ups (
+        <Mono>Recovery Services Vaults</Mono>) waterdicht draaien en het instellen van de juiste
+        alerts in <Mono>Azure Monitor</Mono>.
+      </>
+    ),
   },
 ]
 
-const approach = [
+const workingPrinciples = [
   {
-    title: 'Helder & transparant',
-    description:
-      'Vaste tarieven, duidelijke scope en rapportage zonder jargon waar het niet nodig is.',
+    title: 'Flexibel & Breed Inzetbaar:',
+    body: 'Uurtje-factuurtje. Beschikbaar voor losse klussen, migraties of als vaste uitbreiding van uw team (standaard beschikbaar op maandag).',
   },
   {
-    title: 'Onafhankelijk & veilig',
-    description:
-      'Werk op eigen, geïsoleerde hardware. Scheiding van klantdata en integriteit staan voorop.',
+    title: 'No-nonsense:',
+    body: 'U vertelt wat er moet gebeuren, ik voer het uit.',
   },
   {
-    title: 'Direct resultaat',
-    description:
-      'Concrete vervolgstappen na elke interventie — geen eindeloze rapporten zonder actie.',
+    title: 'Veilig:',
+    body: (
+      <>
+        Ik werk altijd vanaf een 100% geïsoleerde, hardwarematige werkplek (
+        <Mono>M4 Firewall</Mono>) om uw data en omgeving maximaal te beschermen.
+      </>
+    ),
   },
 ]
 
 export default function HomePage() {
   return (
     <div className="min-h-screen">
-      <header className="border-b border-[var(--color-border)] bg-[var(--color-surface)]/95 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-3xl flex-col gap-4 px-6 py-10 sm:py-14">
-          <p className="text-sm font-medium uppercase tracking-widest text-[var(--color-accent)]">
+      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-0 px-6 sm:px-10 lg:px-16">
+        <header className="border-b border-[var(--color-border)] py-16 sm:py-24">
+          <h1 className="text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
             Dirks Cloud Engineering (DCE)
-          </p>
-          <h1 className="text-3xl font-semibold leading-tight text-white sm:text-4xl">
-            Senior Azure Capaciteit &amp; Architectuur
-            <span className="mt-2 block text-xl font-normal text-slate-300 sm:text-2xl">
-              Direct inzetbaar
-            </span>
           </h1>
-        </div>
-      </header>
+          <p className="mt-6 max-w-3xl text-xl leading-snug sm:text-2xl">
+            Hands-on Azure Beheer &amp; Implementatie – Direct Inzetbaar
+          </p>
+        </header>
 
-      <main className="mx-auto max-w-3xl px-6 pb-16">
-        <Section title={challenge.title}>
-          <p className="leading-relaxed text-slate-300">{challenge.body}</p>
+        <Section title="Extra capaciteit in uw Azure Cloud nodig?">
+          <p className="max-w-3xl text-lg leading-relaxed sm:text-xl">
+            Blijft er werk liggen? Vertraging in uw cloud-migraties of mist u tijdelijk de mankracht
+            om uw omgeving strak in te richten en te onderhouden? Dirks Cloud Engineering levert
+            direct inzetbare, nuchtere Azure-expertise voor elke organisatie. Geen lange
+            adviestrajecten of bureaucratie, maar gewoon inloggen, bouwen en beheren. Met 28 jaar
+            brede IT-ervaring pas ik me direct aan uw omgeving en processen aan.
+          </p>
         </Section>
 
-        <Section title={solution.title}>
-          {solution.paragraphs.map((paragraph) => (
-            <p key={paragraph} className="leading-relaxed text-slate-300">
-              {paragraph}
-            </p>
-          ))}
-        </Section>
-
-        <Section title="Kernexpertises">
-          <ul className="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
-            {expertise.map((item) => (
-              <li key={item.title} className="py-5 first:pt-0 last:pb-0">
-                <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-                <p className="mt-2 leading-relaxed text-slate-300">{item.description}</p>
+        <Section title="Wat ik vandaag nog voor u kan oppakken:">
+          <ul className="grid gap-0 border border-[var(--color-border)]">
+            {capabilities.map((item, index) => (
+              <li
+                key={item.title}
+                className={`grid gap-3 p-6 sm:grid-cols-[14rem_1fr] sm:gap-8 sm:p-8 ${
+                  index > 0 ? 'border-t border-[var(--color-border)]' : ''
+                }`}
+              >
+                <p className="text-base font-bold leading-snug sm:text-lg">{item.title}</p>
+                <p className="text-base leading-relaxed sm:text-lg">{item.body}</p>
               </li>
             ))}
           </ul>
         </Section>
 
-        <Section title="Werkwijze">
-          <div className="grid gap-6 sm:grid-cols-3">
-            {approach.map((item) => (
-              <article
+        <Section title="Hoe we werken">
+          <ul className="grid gap-0 border border-[var(--color-border)]">
+            {workingPrinciples.map((item, index) => (
+              <li
                 key={item.title}
-                className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-elevated)] p-5"
+                className={`grid gap-3 p-6 sm:grid-cols-[14rem_1fr] sm:gap-8 sm:p-8 ${
+                  index > 0 ? 'border-t border-[var(--color-border)]' : ''
+                }`}
               >
-                <h3 className="text-base font-semibold text-white">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-300">{item.description}</p>
-              </article>
+                <p className="text-base font-bold leading-snug sm:text-lg">{item.title}</p>
+                <p className="text-base leading-relaxed sm:text-lg">{item.body}</p>
+              </li>
             ))}
-          </div>
+          </ul>
         </Section>
 
         <Section title="Contact" id="contact">
-          <p className="leading-relaxed text-slate-300">
-            Beschikbaar voor MSP&apos;s en MKB die tijdelijk senior Azure-capaciteit nodig hebben.
-          </p>
-          <a
-            href={`mailto:${CONTACT_EMAIL}?subject=Kennismaking%20Dirks%20Cloud%20Engineering`}
-            className="mt-6 inline-flex items-center justify-center rounded-md border border-[var(--color-accent)]/50 bg-slate-900 px-5 py-3 text-sm font-semibold text-[var(--color-accent)] hover:border-[var(--color-accent)] hover:bg-slate-800"
-          >
-            {CONTACT_EMAIL}
-          </a>
+          <div className="grid gap-10">
+            <a
+              href={`mailto:${CONTACT_EMAIL}?subject=Contact%20Dirks%20Cloud%20Engineering`}
+              className="inline-block w-fit max-w-full border-2 border-[var(--color-accent)] bg-[var(--color-accent)] px-8 py-4 text-center text-base font-bold uppercase tracking-widest text-[var(--color-fg)] sm:px-10 sm:text-lg"
+            >
+              Neem direct contact op
+            </a>
+            <p className="max-w-3xl text-base leading-relaxed sm:text-lg">
+              Dirks Cloud Engineering | Azure capaciteit wanneer u het nodig heeft.
+            </p>
+          </div>
         </Section>
-      </main>
-
-      <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface-elevated)]">
-        <div className="mx-auto max-w-3xl px-6 py-8 text-center text-sm text-[var(--color-muted)]">
-          <p>
-            &copy; {new Date().getFullYear()} Dirks Cloud Engineering · KvK {KVK}
-          </p>
-          <p className="mt-2">Zoetermeer · Nederland</p>
-        </div>
-      </footer>
+      </div>
     </div>
   )
 }
@@ -140,12 +144,15 @@ function Section({
   id?: string
 }) {
   return (
-    <section
-      id={id}
-      className="border-b border-[var(--color-border)] py-10 last:border-b-0"
-    >
-      <h2 className="mb-5 text-xl font-semibold text-white">{title}</h2>
-      <div className="space-y-4">{children}</div>
+    <section id={id} className="border-b border-[var(--color-border)] py-14 sm:py-20">
+      <h2 className="mb-8 max-w-3xl text-2xl font-bold leading-tight tracking-tight sm:text-3xl">
+        {title}
+      </h2>
+      {children}
     </section>
   )
+}
+
+function Mono({ children }: { children: React.ReactNode }) {
+  return <span className="font-mono-tech">{children}</span>
 }

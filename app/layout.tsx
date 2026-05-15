@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 
 const inter = Inter({
@@ -8,19 +8,25 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jetbrains-mono',
+})
+
 const siteUrl = 'https://dirkscloud.nl'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Dirks Cloud Engineering | Senior Azure Capaciteit',
+  title: 'Dirks Cloud Engineering | Hands-on Azure Beheer',
   description:
-    'Senior Azure capaciteit en architectuur voor MSP\'s en MKB. Security, FinOps, derdelijns troubleshooting — direct inzetbaar.',
+    'Hands-on Azure beheer en implementatie — direct inzetbaar. Extra capaciteit voor netwerk, identiteit, compute en monitoring.',
   robots: { index: true, follow: true },
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Dirks Cloud Engineering',
     description:
-      'Senior Azure capaciteit en architectuur — direct inzetbaar voor MSP\'s en MKB.',
+      'Hands-on Azure Beheer & Implementatie — direct inzetbaar wanneer u extra capaciteit nodig heeft.',
     url: siteUrl,
     siteName: 'Dirks Cloud Engineering',
     locale: 'nl_NL',
@@ -29,7 +35,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0b1120',
+  themeColor: '#000000',
   width: 'device-width',
   initialScale: 1,
 }
@@ -40,13 +46,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="nl" className={inter.variable}>
+    <html lang="nl" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="font-sans">
         <noscript>
           <div className="noscript-fallback">
             <p>
-              Dirks Cloud Engineering — Senior Azure Capaciteit &amp; Architectuur. Schakel
-              JavaScript in of mail naar{' '}
+              Dirks Cloud Engineering — Hands-on Azure Beheer &amp; Implementatie. Mail{' '}
               <a href="mailto:mdirks@dirkscloud.nl">mdirks@dirkscloud.nl</a>.
             </p>
           </div>
