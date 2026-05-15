@@ -28,12 +28,19 @@ export function HomePage() {
   const { language } = useLanguage()
   const t = homeContent[language]
   const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t.mailSubject)}`
+  const terminalBanner =
+    language === 'nl'
+      ? '[ M4 FIREWALL // SENIOR AZURE ARCHITECTUUR ]'
+      : '[ M4 FIREWALL // SENIOR AZURE ARCHITECTURE ]'
 
   return (
-    <div className="min-h-screen">
-      <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]">
+    <div className="terminal-shell min-h-screen">
+      <header className="brutal-header sticky top-0 z-50">
         <div className="site-container flex flex-wrap items-center justify-between gap-4 py-4">
-          <Link href="/" className="text-sm font-bold tracking-tight sm:text-base">
+          <Link
+            href="/"
+            className="font-mono-tech text-xs font-bold uppercase tracking-widest text-white sm:text-sm"
+          >
             {t.headerLogo}
           </Link>
           <div className="flex flex-wrap items-center gap-3 sm:gap-4">
@@ -46,31 +53,35 @@ export function HomePage() {
       </header>
 
       <main>
-        <section className="border-b border-[var(--color-border)] py-16 sm:py-24">
+        <section className="brutal-section py-16 sm:py-24">
           <div className="site-container">
-            <h1 className="max-w-4xl text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+            <p className="label-terminal">{terminalBanner}</p>
+            <h1 className="heading-brutal mt-4 max-w-4xl text-4xl leading-[1.05] sm:text-5xl lg:text-7xl">
               {t.heroH1}
             </h1>
-            <p className="mt-8 max-w-3xl text-lg leading-relaxed sm:text-xl">{t.heroSubtitle}</p>
+            <p className="prose-muted mt-8 max-w-3xl text-lg sm:text-xl">{t.heroSubtitle}</p>
             <a href="#contact" className="btn-cta mt-10 inline-block">
               {t.heroCta}
             </a>
           </div>
         </section>
 
-        <section className="border-b border-[var(--color-border)] py-14 sm:py-20">
+        <section className="brutal-section py-14 sm:py-20">
           <div className="site-container">
-            <h2 className="mb-10 text-2xl font-bold tracking-tight sm:text-3xl">{t.gridTitle}</h2>
-            <ul className="grid grid-cols-1 border border-[var(--color-border)] sm:grid-cols-2">
+            <p className="label-terminal mb-3">{'// AZ-104_SCOPE'}</p>
+            <h2 className="heading-brutal mb-10 text-2xl sm:text-4xl">{t.gridTitle}</h2>
+            <ul className="grid grid-cols-1 border-2 border-white/20 sm:grid-cols-2">
               {t.gridBlocks.map((block, index) => (
                 <li
                   key={block.title}
-                  className={`border-[var(--color-border)] p-6 sm:p-8 ${
-                    index % 2 === 1 ? 'sm:border-l' : ''
-                  } ${index >= 2 ? 'border-t' : ''} ${index === 1 ? 'sm:border-t-0' : ''}`}
+                  className={`bg-black p-6 sm:p-8 ${
+                    index % 2 === 1 ? 'border-l-2 border-white/20 sm:border-l-2' : ''
+                  } ${index >= 2 ? 'border-t-2 border-white/20' : ''} ${
+                    index === 1 ? 'sm:border-t-0' : ''
+                  }`}
                 >
-                  <h3 className="text-lg font-bold">{block.title}</h3>
-                  <p className="mt-3 text-base leading-relaxed">
+                  <h3 className="heading-brutal text-lg sm:text-xl">{block.title}</h3>
+                  <p className="prose-muted mt-3 text-base">
                     <TechText text={block.body} />
                   </p>
                 </li>
@@ -84,17 +95,20 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="border-b border-[var(--color-border)] py-14 sm:py-20">
+        <section className="brutal-section py-14 sm:py-20">
           <div className="site-container">
-            <h2 className="mb-10 text-2xl font-bold tracking-tight sm:text-3xl">{t.approachTitle}</h2>
-            <ul className="grid grid-cols-1 gap-0 border border-[var(--color-border)] lg:grid-cols-3">
+            <p className="label-terminal mb-3">{'// WERKWIJZE'}</p>
+            <h2 className="heading-brutal mb-10 text-2xl sm:text-4xl">{t.approachTitle}</h2>
+            <ul className="grid grid-cols-1 border-2 border-white/20 lg:grid-cols-3">
               {t.approachItems.map((item, index) => (
                 <li
                   key={item.title}
-                  className={`p-6 sm:p-8 ${index > 0 ? 'border-t border-[var(--color-border)] lg:border-t-0 lg:border-l' : ''}`}
+                  className={`brutal-card p-6 sm:p-8 ${
+                    index > 0 ? 'border-t-2 border-white/20 lg:border-t-0 lg:border-l-2 lg:border-white/20' : ''
+                  }`}
                 >
-                  <h3 className="text-lg font-bold">{item.title}</h3>
-                  <p className="mt-3 text-base leading-relaxed">
+                  <h3 className="heading-brutal text-lg">{item.title}</h3>
+                  <p className="prose-muted mt-3 text-base">
                     <TechText text={item.body} />
                   </p>
                 </li>
@@ -103,34 +117,29 @@ export function HomePage() {
           </div>
         </section>
 
-        <section id="contact" className="border-b border-[var(--color-border)] py-14 sm:py-20">
+        <section id="contact" className="brutal-section py-14 sm:py-20">
           <div className="site-container">
-            <p className="text-sm font-bold uppercase tracking-widest text-[var(--color-border)]">
-              {t.contactSectionLabel}
-            </p>
-            <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">{t.contactTitle}</h2>
-            <a href={mailto} className="btn-cta mt-8 inline-block text-base sm:text-lg">
+            <p className="label-terminal">{t.contactSectionLabel}</p>
+            <h2 className="heading-brutal mt-3 text-2xl sm:text-4xl">{t.contactTitle}</h2>
+            <a href={mailto} className="btn-cta mt-8 inline-block font-mono-tech text-sm sm:text-base">
               {CONTACT_EMAIL}
             </a>
           </div>
         </section>
       </main>
 
-      <footer className="py-10">
-        <div className="site-container flex flex-col gap-4 text-sm leading-relaxed sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2">
-          <p className="text-[var(--color-fg)]">{t.footerLine}</p>
-          <p className="text-[var(--color-border)]">
-            {t.footerRegistryLabel}: <span className="text-[var(--color-fg)]">{KVK}</span>
+      <footer className="border-t-2 border-white/20 py-10">
+        <div className="site-container flex flex-col gap-4 font-mono-tech text-xs uppercase tracking-wider sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2 sm:text-sm">
+          <p className="text-white normal-case tracking-normal">{t.footerLine}</p>
+          <p className="text-[var(--color-muted)]">
+            {t.footerRegistryLabel}: <span className="text-white">{KVK}</span>
           </p>
-          <Link
-            href="/voorwaarden/"
-            className="font-semibold text-[var(--color-fg)] underline decoration-[var(--color-border)] underline-offset-4"
-          >
+          <Link href="/voorwaarden/" className="brutal-link normal-case">
             {t.footerTermsLink}
           </Link>
         </div>
       </footer>
-            </div>
+    </div>
   )
 }
 
@@ -142,7 +151,7 @@ function TechText({ text }: { text: string }) {
         if (!part) return null
         if (TECH_TERMS.has(part)) {
           return (
-            <span key={`${part}-${index}`} className="font-mono-tech">
+            <span key={`${part}-${index}`} className="font-mono-tech text-white">
               {part}
             </span>
           )

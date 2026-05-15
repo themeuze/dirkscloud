@@ -5,7 +5,8 @@
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
   --color-bg: #000000;
   --color-fg: #ffffff;
-  --color-border: #404040;
+  --color-muted: #cbd5e1;
+  --color-border: rgba(255, 255, 255, 0.2);
   --color-accent: #0078d4;
 }
 
@@ -15,9 +16,19 @@ html {
 
 body {
   background-color: var(--color-bg);
-  color: var(--color-fg);
+  color: var(--color-muted);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Terminal grid — sharp lines, no fades */
+.terminal-shell {
+  min-height: 100vh;
+  background-color: #000000;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
 .font-mono-tech {
@@ -37,54 +48,157 @@ body {
   }
 }
 
+.heading-brutal {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--color-fg);
+}
+
+.label-terminal {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.prose-muted {
+  color: var(--color-muted);
+  line-height: 1.65;
+}
+
+/* Neo-brutalist CTA — solid block, hard offset shadow, no glow */
 .btn-cta {
   display: inline-block;
-  border: 2px solid var(--color-accent);
+  border: 2px solid #ffffff;
+  border-radius: 0;
   background-color: var(--color-accent);
-  color: var(--color-fg);
-  padding: 0.75rem 1.5rem;
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  color: #ffffff;
+  padding: 0.8rem 1.5rem;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   text-align: center;
   line-height: 1.25;
+  box-shadow: 4px 4px 0 #ffffff;
+  transition: none;
 }
 
 .btn-cta:hover {
-  background-color: var(--color-fg);
-  color: var(--color-bg);
-  border-color: var(--color-fg);
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+  box-shadow: 2px 2px 0 var(--color-accent);
+  transform: translate(2px, 2px);
+}
+
+.btn-cta:active {
+  box-shadow: 0 0 0 #ffffff;
+  transform: translate(4px, 4px);
 }
 
 .btn-cta-outline {
   display: inline-block;
-  border: 2px solid var(--color-fg);
-  background-color: transparent;
-  color: var(--color-fg);
-  padding: 0.75rem 1.5rem;
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  border: 2px solid #ffffff;
+  border-radius: 0;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 0.8rem 1.5rem;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  text-align: center;
-  line-height: 1.25;
+  box-shadow: 4px 4px 0 var(--color-accent);
+  transition: none;
 }
 
 .btn-cta-outline:hover {
-  background-color: var(--color-fg);
-  color: var(--color-bg);
+  background-color: #ffffff;
+  color: #000000;
+  box-shadow: 2px 2px 0 #ffffff;
+  transform: translate(2px, 2px);
+}
+
+/* Flat brutal panels — no blur, no gradient */
+.brutal-card {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0;
+  background-color: #000000;
+}
+
+.brutal-header {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  background-color: #000000;
+}
+
+.brutal-section {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.brutal-link {
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 4px;
+  transition: none;
+}
+
+.brutal-link:hover {
+  color: var(--color-accent);
+  text-decoration-color: #ffffff;
+}
+
+.lang-switch {
+  display: flex;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0;
+  box-shadow: 3px 3px 0 var(--color-accent);
+}
+
+.lang-switch button {
+  min-width: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 0;
+  border-radius: 0;
+  background: #000000;
+  color: #ffffff;
+  cursor: pointer;
+  transition: none;
+}
+
+.lang-switch button + button {
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.lang-switch button[aria-pressed='true'] {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.lang-switch button:hover {
+  background: #ffffff;
+  color: #000000;
 }
 
 .noscript-fallback {
   max-width: 56rem;
   margin: 2rem auto;
-  padding: 0 1.5rem;
+  padding: 1rem 1.5rem;
   line-height: 1.6;
-  border: 1px solid var(--color-border);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: #000000;
+  box-shadow: 4px 4px 0 var(--color-accent);
 }
 
 .noscript-fallback a {
   color: var(--color-accent);
-  text-decoration: underline;
+  font-weight: 700;
 }
