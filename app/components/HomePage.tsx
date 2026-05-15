@@ -28,14 +28,11 @@ export function HomePage() {
   const { language } = useLanguage()
   const t = homeContent[language]
   const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t.mailSubject)}`
-  const terminalBanner =
-    language === 'nl'
-      ? '[ M4 FIREWALL // SENIOR AZURE ARCHITECTUUR ]'
-      : '[ M4 FIREWALL // SENIOR AZURE ARCHITECTURE ]'
+  const terminalBanner = '[ M4 FIREWALL · SENIOR AZURE ]'
 
   return (
-    <div className="terminal-shell min-h-screen">
-      <header className="brutal-header sticky top-0 z-50">
+    <div className="page-shell">
+      <header className="site-header">
         <div className="site-container flex flex-wrap items-center justify-between gap-4 py-4">
           <Link
             href="/"
@@ -43,9 +40,9 @@ export function HomePage() {
           >
             {t.headerLogo}
           </Link>
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+          <div className="flex flex-wrap items-center gap-3">
             <LanguageSwitcher />
-            <a href="#contact" className="btn-cta shrink-0 text-xs sm:text-sm">
+            <a href="#contact" className="btn-cta text-xs sm:text-sm">
               {t.headerCta}
             </a>
           </div>
@@ -53,10 +50,10 @@ export function HomePage() {
       </header>
 
       <main>
-        <section className="brutal-section py-16 sm:py-24">
+        <section className="section-block py-16 sm:py-20">
           <div className="site-container">
             <p className="label-terminal">{terminalBanner}</p>
-            <h1 className="heading-brutal mt-4 max-w-4xl text-4xl leading-[1.05] sm:text-5xl lg:text-7xl">
+            <h1 className="heading-brutal mt-4 max-w-4xl text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
               {t.heroH1}
             </h1>
             <p className="prose-muted mt-8 max-w-3xl text-lg sm:text-xl">{t.heroSubtitle}</p>
@@ -66,28 +63,21 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="brutal-section py-14 sm:py-20">
+        <section className="section-block py-14 sm:py-16">
           <div className="site-container">
-            <p className="label-terminal mb-3">{'// AZ-104_SCOPE'}</p>
-            <h2 className="heading-brutal mb-10 text-2xl sm:text-4xl">{t.gridTitle}</h2>
-            <ul className="grid grid-cols-1 border-2 border-white/20 sm:grid-cols-2">
-              {t.gridBlocks.map((block, index) => (
-                <li
-                  key={block.title}
-                  className={`bg-black p-6 sm:p-8 ${
-                    index % 2 === 1 ? 'border-l-2 border-white/20 sm:border-l-2' : ''
-                  } ${index >= 2 ? 'border-t-2 border-white/20' : ''} ${
-                    index === 1 ? 'sm:border-t-0' : ''
-                  }`}
-                >
-                  <h3 className="heading-brutal text-lg sm:text-xl">{block.title}</h3>
+            <p className="label-terminal mb-3">{'// EXPERTISE'}</p>
+            <h2 className="heading-brutal mb-8 text-2xl sm:text-3xl">{t.gridTitle}</h2>
+            <ul className="panel-grid panel-grid-2">
+              {t.gridBlocks.map((block) => (
+                <li key={block.title}>
+                  <h3 className="heading-brutal text-lg">{block.title}</h3>
                   <p className="prose-muted mt-3 text-base">
                     <TechText text={block.body} />
                   </p>
                 </li>
               ))}
             </ul>
-            <div className="mt-12 flex justify-center">
+            <div className="mt-10 flex justify-center">
               <a href="#contact" className="btn-cta">
                 {t.gridCta}
               </a>
@@ -95,18 +85,13 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="brutal-section py-14 sm:py-20">
+        <section className="section-block py-14 sm:py-16">
           <div className="site-container">
             <p className="label-terminal mb-3">{'// WERKWIJZE'}</p>
-            <h2 className="heading-brutal mb-10 text-2xl sm:text-4xl">{t.approachTitle}</h2>
-            <ul className="grid grid-cols-1 border-2 border-white/20 lg:grid-cols-3">
-              {t.approachItems.map((item, index) => (
-                <li
-                  key={item.title}
-                  className={`brutal-card p-6 sm:p-8 ${
-                    index > 0 ? 'border-t-2 border-white/20 lg:border-t-0 lg:border-l-2 lg:border-white/20' : ''
-                  }`}
-                >
+            <h2 className="heading-brutal mb-8 text-2xl sm:text-3xl">{t.approachTitle}</h2>
+            <ul className="panel-grid panel-grid-3">
+              {t.approachItems.map((item) => (
+                <li key={item.title}>
                   <h3 className="heading-brutal text-lg">{item.title}</h3>
                   <p className="prose-muted mt-3 text-base">
                     <TechText text={item.body} />
@@ -117,24 +102,24 @@ export function HomePage() {
           </div>
         </section>
 
-        <section id="contact" className="brutal-section py-14 sm:py-20">
+        <section id="contact" className="section-block py-14 sm:py-16">
           <div className="site-container">
             <p className="label-terminal">{t.contactSectionLabel}</p>
-            <h2 className="heading-brutal mt-3 text-2xl sm:text-4xl">{t.contactTitle}</h2>
-            <a href={mailto} className="btn-cta mt-8 inline-block font-mono-tech text-sm sm:text-base">
+            <h2 className="heading-brutal mt-3 text-2xl sm:text-3xl">{t.contactTitle}</h2>
+            <a href={mailto} className="btn-cta mt-8 inline-block font-mono-tech text-sm">
               {CONTACT_EMAIL}
             </a>
           </div>
         </section>
       </main>
 
-      <footer className="border-t-2 border-white/20 py-10">
-        <div className="site-container flex flex-col gap-4 font-mono-tech text-xs uppercase tracking-wider sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2 sm:text-sm">
-          <p className="text-white normal-case tracking-normal">{t.footerLine}</p>
+      <footer className="site-footer py-8">
+        <div className="site-container flex flex-col gap-3 text-sm sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5">
+          <p className="text-white">{t.footerLine}</p>
           <p className="text-[var(--color-muted)]">
             {t.footerRegistryLabel}: <span className="text-white">{KVK}</span>
           </p>
-          <Link href="/voorwaarden/" className="brutal-link normal-case">
+          <Link href="/voorwaarden/" className="brutal-link">
             {t.footerTermsLink}
           </Link>
         </div>

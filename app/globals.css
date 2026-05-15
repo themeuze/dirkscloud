@@ -6,7 +6,7 @@
   --color-bg: #000000;
   --color-fg: #ffffff;
   --color-muted: #cbd5e1;
-  --color-border: rgba(255, 255, 255, 0.2);
+  --color-line: rgba(255, 255, 255, 0.15);
   --color-accent: #0078d4;
 }
 
@@ -21,14 +21,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Terminal grid — sharp lines, no fades */
-.terminal-shell {
+.page-shell {
   min-height: 100vh;
   background-color: #000000;
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  background-size: 40px 40px;
 }
 
 .font-mono-tech {
@@ -48,6 +43,22 @@ body {
   }
 }
 
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--color-line);
+  background-color: #000000;
+}
+
+.site-footer {
+  border-top: 1px solid var(--color-line);
+}
+
+.section-block {
+  border-bottom: 1px solid var(--color-line);
+}
+
 .heading-brutal {
   font-weight: 900;
   letter-spacing: -0.03em;
@@ -58,7 +69,7 @@ body {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-accent);
 }
@@ -68,17 +79,17 @@ body {
   line-height: 1.65;
 }
 
-/* Neo-brutalist CTA — solid block, hard offset shadow, no glow */
+/* Eén laag: accentvlak + harde offset (geen dubbele witte rand) */
 .btn-cta {
   display: inline-block;
-  border: 2px solid #ffffff;
+  border: 2px solid var(--color-accent);
   border-radius: 0;
   background-color: var(--color-accent);
   color: #ffffff;
-  padding: 0.8rem 1.5rem;
+  padding: 0.75rem 1.25rem;
   font-size: 0.8125rem;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   text-align: center;
   line-height: 1.25;
@@ -95,46 +106,63 @@ body {
 }
 
 .btn-cta:active {
-  box-shadow: 0 0 0 #ffffff;
+  box-shadow: none;
   transform: translate(4px, 4px);
 }
 
-.btn-cta-outline {
-  display: inline-block;
-  border: 2px solid #ffffff;
-  border-radius: 0;
-  background-color: #000000;
-  color: #ffffff;
-  padding: 0.8rem 1.5rem;
-  font-size: 0.8125rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  box-shadow: 4px 4px 0 var(--color-accent);
-  transition: none;
-}
-
-.btn-cta-outline:hover {
-  background-color: #ffffff;
-  color: #000000;
-  box-shadow: 2px 2px 0 #ffffff;
-  transform: translate(2px, 2px);
-}
-
-/* Flat brutal panels — no blur, no gradient */
-.brutal-card {
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 0;
+/* Grid: één buitenrand, interne scheiding via divide */
+.panel-grid {
+  display: grid;
+  border: 1px solid var(--color-line);
   background-color: #000000;
 }
 
-.brutal-header {
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-  background-color: #000000;
+.panel-grid > * {
+  padding: 1.5rem;
 }
 
-.brutal-section {
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+@media (min-width: 640px) {
+  .panel-grid > * {
+    padding: 2rem;
+  }
+}
+
+.panel-grid-2 {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .panel-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .panel-grid-2 > *:nth-child(odd) {
+    border-right: 1px solid var(--color-line);
+  }
+
+  .panel-grid-2 > *:nth-child(n + 3) {
+    border-top: 1px solid var(--color-line);
+  }
+}
+
+.panel-grid-3 {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .panel-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .panel-grid-3 > * + * {
+    border-left: 1px solid var(--color-line);
+  }
+}
+
+@media (max-width: 1023px) {
+  .panel-grid-3 > * + * {
+    border-top: 1px solid var(--color-line);
+  }
 }
 
 .brutal-link {
@@ -142,60 +170,81 @@ body {
   font-weight: 700;
   text-decoration: underline;
   text-decoration-color: var(--color-accent);
-  text-underline-offset: 4px;
-  transition: none;
+  text-underline-offset: 3px;
 }
 
 .brutal-link:hover {
   color: var(--color-accent);
-  text-decoration-color: #ffffff;
 }
 
 .lang-switch {
   display: flex;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--color-line);
   border-radius: 0;
-  box-shadow: 3px 3px 0 var(--color-accent);
 }
 
 .lang-switch button {
-  min-width: 2.75rem;
-  padding: 0.5rem 0.75rem;
+  min-width: 2.5rem;
+  padding: 0.45rem 0.65rem;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   border: 0;
   border-radius: 0;
   background: #000000;
   color: #ffffff;
   cursor: pointer;
-  transition: none;
 }
 
 .lang-switch button + button {
-  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  border-left: 1px solid var(--color-line);
 }
 
 .lang-switch button[aria-pressed='true'] {
   background: var(--color-accent);
-  color: #ffffff;
 }
 
-.lang-switch button:hover {
-  background: #ffffff;
-  color: #000000;
+.lang-switch button:hover:not([aria-pressed='true']) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.legal-panel {
+  max-width: 48rem;
+  border: 1px solid var(--color-line);
+  background-color: #000000;
+  padding: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .legal-panel {
+    padding: 2.5rem;
+  }
+}
+
+.legal-panel h1 {
+  border-bottom: 1px solid var(--color-line);
+  padding-bottom: 1.5rem;
+  margin-bottom: 0;
+}
+
+.legal-article {
+  border-bottom: 1px solid var(--color-line);
+  padding: 1.75rem 0;
+}
+
+.legal-article:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
 }
 
 .noscript-fallback {
   max-width: 56rem;
   margin: 2rem auto;
   padding: 1rem 1.5rem;
-  line-height: 1.6;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--color-line);
   background: #000000;
-  box-shadow: 4px 4px 0 var(--color-accent);
 }
 
 .noscript-fallback a {
