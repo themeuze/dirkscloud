@@ -16,17 +16,19 @@ type AzureFunctionContext = {
 type ContactBody = {
   name?: string
   email?: string
-  subject?: string
   message?: string
   company?: string
+  phone?: string
+  requestType?: string
 }
 
 type ContactFields = {
   name: string
   email: string
-  subject: string
   message: string
-  company?: string
+  requestType: string
+  company: string
+  phone: string
 }
 
 type SendResult =
@@ -35,7 +37,16 @@ type SendResult =
 
 const SENDER_ADDRESS = 'donotreply@dirkscloud.nl'
 const ADMIN_RECIPIENT = 'mdirks@dirkscloud.nl'
-const CONFIRMATION_SUBJECT = 'Bedankt voor je bericht aan Dirks Cloud Engineering'
+const CONFIRMATION_SUBJECT = 'Ontvangstbevestiging — Dirks Cloud Engineering'
+const NOT_PROVIDED = 'Niet opgegeven'
+
+const VALID_REQUEST_TYPES = [
+  'Cloud Migratie',
+  'Security Audit',
+  'Azure Advies / Consultancy',
+  'Infrastructure as Code',
+  'Algemene Vraag',
+] as const
 
 function escapeHtml(value: string): string {
   return value
@@ -46,63 +57,58 @@ function escapeHtml(value: string): string {
     .replace(/'/g, '&#39;')
 }
 
-function buildLeadHtml(data: ContactFields): string {
-  const companyRow = data.company
-    ? `<tr><td style="padding:8px 12px;font-weight:600;color:#475569">Bedrijf</td><td style="padding:8px 12px">${escapeHtml(data.company)}</td></tr>`
-    : ''
+function displayOptional(value: string | undefined): string {
+  const trimmed = value?.trim() ?? ''
+  return trimmed ? escapeHtml(trimmed) : NOT_PROVIDED
+}
+
+function buildAdminLeadHtml(data: ContactFields): string {
+  const line = (label: string, value: string) =>
+    `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155"><strong>${label}:</strong> ${value}</p>`
+
+  const sections = [
+    line('Naam', escapeHtml(data.name)),
+    line('E-mail', `<a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a>`),
+    line('Bedrijfsnaam', displayOptional(data.company)),
+    line('Telefoonnummer', displayOptional(data.phone)),
+    line('Type aanvraag', escapeHtml(data.requestType)),
+    `<p style="margin:0 0 8px;font-size:14px;line-height:1.6;color:#334155"><strong>Bericht:</strong></p>
+     <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155;white-space:pre-wrap">${escapeHtml(data.message)}</p>`,
+  ].join('')
 
   return `<!DOCTYPE html>
 <html lang="nl">
-  <body style="margin:0;padding:24px;font-family:Segoe UI,Helvetica,Arial,sans-serif;background:#f8fafc;color:#0f172a">
-    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #e2e8f0;border-radius:8px">
-      <tr>
-        <td style="padding:20px 24px;border-bottom:1px solid #e2e8f0">
-          <h1 style="margin:0;font-size:18px;color:#0078d4">Nieuw contactformulier</h1>
-          <p style="margin:8px 0 0;font-size:14px;color:#64748b">Dirks Cloud Engineering — dirkscloud.nl</p>
-        </td>
-      </tr>
-      <tr>
-        <td style="padding:16px 24px 24px">
-          <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="font-size:14px;line-height:1.5">
-            <tr><td style="padding:8px 12px;font-weight:600;color:#475569">Naam</td><td style="padding:8px 12px">${escapeHtml(data.name)}</td></tr>
-            <tr><td style="padding:8px 12px;font-weight:600;color:#475569">E-mail</td><td style="padding:8px 12px"><a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a></td></tr>
-            <tr><td style="padding:8px 12px;font-weight:600;color:#475569">Onderwerp</td><td style="padding:8px 12px">${escapeHtml(data.subject)}</td></tr>
-            ${companyRow}
-            <tr><td style="padding:8px 12px;font-weight:600;color:#475569;vertical-align:top">Bericht</td><td style="padding:8px 12px;white-space:pre-wrap">${escapeHtml(data.message)}</td></tr>
-          </table>
-        </td>
-      </tr>
-    </table>
+  <body style="margin:0;padding:24px;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#333">
+    <div style="max-width:600px;margin:0 auto;background:#fff;border:1px solid #eee;padding:20px;border-radius:8px">
+      <h2 style="margin:0 0 16px;font-size:18px;color:#0078d4">Nieuw contactformulier</h2>
+      <p style="margin:0 0 20px;font-size:13px;color:#64748b">Dirks Cloud Engineering — dirkscloud.nl</p>
+      ${sections}
+    </div>
   </body>
 </html>`
 }
 
 function buildConfirmationHtml(data: ContactFields): string {
+  const companyDisplay = data.company.trim() ? escapeHtml(data.company) : 'N.v.t.'
+
   return `<!DOCTYPE html>
 <html lang="nl">
-  <body style="margin:0;padding:24px;font-family:Segoe UI,Helvetica,Arial,sans-serif;background:#f8fafc;color:#0f172a">
-    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #e2e8f0;border-radius:8px">
-      <tr>
-        <td style="padding:24px">
-          <p style="margin:0 0 16px;font-size:14px;color:#64748b">Dirks Cloud Engineering</p>
-          <h1 style="margin:0 0 20px;font-size:20px;color:#0078d4">Bedankt voor uw bericht</h1>
-          <p style="margin:0 0 12px;font-size:15px;line-height:1.6;color:#334155">
-            Beste ${escapeHtml(data.name)},
-          </p>
-          <p style="margin:0 0 12px;font-size:15px;line-height:1.6;color:#334155">
-            Hartelijk dank voor uw bericht. Ik heb uw aanvraag over <strong>${escapeHtml(data.subject)}</strong> in goede orde ontvangen.
-          </p>
-          <p style="margin:0 0 20px;font-size:15px;line-height:1.6;color:#334155">
-            Ik neem zo snel mogelijk contact met u op — doorgaans binnen één werkdag.
-          </p>
-          <p style="margin:0;font-size:14px;line-height:1.6;color:#64748b">
-            Met vriendelijke groet,<br />
-            <strong style="color:#0f172a">M. Dirks</strong><br />
-            Dirks Cloud Engineering
-          </p>
-        </td>
-      </tr>
-    </table>
+  <body style="margin:0;padding:24px;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#333">
+    <div style="font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;color:#333;max-width:600px;border:1px solid #eee;padding:20px;background:#fff;border-radius:8px">
+      <h2 style="color:#0078d4;margin-top:0">Ontvangstbevestiging — Dirks Cloud Engineering</h2>
+      <p>Beste ${escapeHtml(data.name)},</p>
+      <p>Hartelijk dank voor uw contactaanvraag via <strong>dirkscloud.nl</strong>.</p>
+      <p>Wij hebben uw gegevens en de interesse in <strong>${escapeHtml(data.requestType)}</strong> in goede orde ontvangen. Maurits Dirks zal uw bericht persoonlijk beoordelen en binnen 24 uur contact met u opnemen om de verdere details te bespreken.</p>
+      <div style="background-color:#f4f4f4;padding:15px;border-radius:5px;margin:20px 0">
+        <h4 style="margin-top:0">Samenvatting aanvraag:</h4>
+        <ul style="list-style:none;padding:0;margin:0">
+          <li style="margin-bottom:8px"><strong>Onderwerp:</strong> ${escapeHtml(data.requestType)}</li>
+          <li><strong>Organisatie:</strong> ${companyDisplay}</li>
+        </ul>
+      </div>
+      <p>Met vriendelijke groet,</p>
+      <p><strong>Dirks Cloud Engineering</strong></p>
+    </div>
   </body>
 </html>`
 }
@@ -114,18 +120,23 @@ function parseBody(req: HttpRequest): ContactBody {
   return (req.body ?? {}) as ContactBody
 }
 
+function isValidRequestType(value: string): boolean {
+  return VALID_REQUEST_TYPES.includes(value as (typeof VALID_REQUEST_TYPES)[number])
+}
+
 function parseContactFields(body: ContactBody): ContactFields | null {
   const name = body.name?.trim() ?? ''
   const email = body.email?.trim() ?? ''
-  const subject = body.subject?.trim() ?? ''
   const message = body.message?.trim() ?? ''
-  const company = body.company?.trim()
+  const requestType = body.requestType?.trim() ?? ''
+  const company = body.company?.trim() ?? ''
+  const phone = body.phone?.trim() ?? ''
 
-  if (!name || !email || !subject || !message) {
+  if (!name || !email || !message || !requestType || !isValidRequestType(requestType)) {
     return null
   }
 
-  return { name, email, subject, message, company: company || undefined }
+  return { name, email, message, requestType, company, phone }
 }
 
 function formatError(error: unknown): string {
@@ -183,13 +194,17 @@ const httpTrigger = async function (context: AzureFunctionContext, req: HttpRequ
 
     const fields = parseContactFields(parseBody(req))
     if (!fields) {
-      context.log.error('Invalid request body. Required fields: name, email, subject, message.')
+      context.log.error(
+        'Invalid request body. Required: name, email, message, requestType (valid option). Optional: company, phone.',
+      )
       context.res = { status: 500, body: { error: 'Invalid request payload' } }
       return
     }
 
+    const adminSubject = `[${fields.requestType}] Contactaanvraag — ${fields.name}`
+
     context.log(
-      `Preparing dual ACS emails — sender: ${SENDER_ADDRESS}, admin: ${ADMIN_RECIPIENT}, customer: ${fields.email}`,
+      `Preparing dual ACS emails — sender: ${SENDER_ADDRESS}, admin: ${ADMIN_RECIPIENT}, customer: ${fields.email}, requestType: ${fields.requestType}`,
     )
 
     const emailClient = new EmailClient(connectionString)
@@ -198,8 +213,8 @@ const httpTrigger = async function (context: AzureFunctionContext, req: HttpRequ
       sendEmail(emailClient, {
         senderAddress: SENDER_ADDRESS,
         content: {
-          subject: fields.subject,
-          html: buildLeadHtml(fields),
+          subject: adminSubject,
+          html: buildAdminLeadHtml(fields),
         },
         recipients: {
           to: [{ address: ADMIN_RECIPIENT }],
@@ -243,7 +258,7 @@ const httpTrigger = async function (context: AzureFunctionContext, req: HttpRequ
     }
 
     context.log(
-      `Both ACS emails sent successfully — adminMessageId: ${leadResult.messageId}, confirmationMessageId: ${confirmationResult.messageId}, admin: ${ADMIN_RECIPIENT}, customer: ${fields.email}`,
+      `Both ACS emails sent successfully — adminMessageId: ${leadResult.messageId}, confirmationMessageId: ${confirmationResult.messageId}, requestType: ${fields.requestType}, admin: ${ADMIN_RECIPIENT}, customer: ${fields.email}`,
     )
 
     context.res = {

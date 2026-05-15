@@ -119,7 +119,11 @@ export function HomePage() {
                 </>
               )}
               <div className={contactSent ? '' : 'mt-8 border-t border-slate-200 pt-8'}>
-                <ContactForm language={language} onSuccess={() => setContactSent(true)} />
+                <ContactForm
+                  language={language}
+                  onSuccess={() => setContactSent(true)}
+                  onReset={() => setContactSent(false)}
+                />
               </div>
             </div>
           </div>

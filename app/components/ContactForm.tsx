@@ -1,6 +1,8 @@
 'use client'
 
+import Link from 'next/link'
 import { useState, type FormEvent, type FocusEvent } from 'react'
+import { REQUEST_TYPE_VALUES, requestTypeLabels } from '@/lib/contact-request-types'
 import { contactFormContent } from '@/lib/i18n/contact-form'
 import type { Language } from '@/lib/i18n/types'
 
@@ -10,6 +12,8 @@ type FormData = {
   name: string
   email: string
   company: string
+  phone: string
+  requestType: string
   message: string
 }
 
@@ -19,10 +23,13 @@ const initialFormData: FormData = {
   name: '',
   email: '',
   company: '',
+  phone: '',
+  requestType: '',
   message: '',
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const PHONE_PATTERN = /^[+]?[\d\s().-]{6,20}$/
 
 function validateField(field: keyof FormData, value: string, t: (typeof contactFormContent)['nl']): string | undefined {
   const trimmed = value.trim()
@@ -36,9 +43,15 @@ function validateField(field: keyof FormData, value: string, t: (typeof contactF
       if (!trimmed) return t.emailRequired
       if (!EMAIL_PATTERN.test(trimmed)) return t.emailInvalid
       return undefined
+    case 'requestType':
+      if (!trimmed) return t.requestTypeRequired
+      return undefined
     case 'message':
       if (!trimmed) return t.messageRequired
       if (trimmed.length < 10) return t.messageMin
+      return undefined
+    case 'phone':
+      if (trimmed && !PHONE_PATTERN.test(trimmed)) return t.phoneInvalid
       return undefined
     case 'company':
       return undefined
@@ -47,7 +60,7 @@ function validateField(field: keyof FormData, value: string, t: (typeof contactF
 
 function validateForm(data: FormData, t: (typeof contactFormContent)['nl']): FormErrors {
   const errors: FormErrors = {}
-  const fields: (keyof FormData)[] = ['name', 'email', 'message']
+  const fields: (keyof FormData)[] = ['name', 'email', 'phone', 'requestType', 'message']
 
   for (const field of fields) {
     const error = validateField(field, data[field], t)
@@ -60,14 +73,17 @@ function validateForm(data: FormData, t: (typeof contactFormContent)['nl']): For
 type ContactFormProps = {
   language: Language
   onSuccess?: () => void
+  onReset?: () => void
 }
 
-export function ContactForm({ language, onSuccess }: ContactFormProps) {
+export function ContactForm({ language, onSuccess, onReset }: ContactFormProps) {
   const t = contactFormContent[language]
+  const typeLabels = requestTypeLabels[language]
   const [formData, setFormData] = useState<FormData>(initialFormData)
   const [errors, setErrors] = useState<FormErrors>({})
   const [touched, setTouched] = useState<Partial<Record<keyof FormData, boolean>>>({})
   const [status, setStatus] = useState<FormStatus>('idle')
+  const [submittedEmail, setSubmittedEmail] = useState('')
 
   const showError = (field: keyof FormData) => Boolean(touched[field] && errors[field])
 
@@ -80,7 +96,7 @@ export function ContactForm({ language, onSuccess }: ContactFormProps) {
 
   const handleChange =
     (field: keyof FormData) =>
-    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
       const value = event.target.value
       setFormData((prev) => ({ ...prev, [field]: value }))
       if (touched[field]) {
@@ -88,17 +104,19 @@ export function ContactForm({ language, onSuccess }: ContactFormProps) {
       }
     }
 
-  const handleBlur = (field: keyof FormData) => (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setTouched((prev) => ({ ...prev, [field]: true }))
-    setErrors((prev) => ({ ...prev, [field]: validateField(field, event.target.value, t) }))
-  }
+  const handleBlur =
+    (field: keyof FormData) =>
+    (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      setTouched((prev) => ({ ...prev, [field]: true }))
+      setErrors((prev) => ({ ...prev, [field]: validateField(field, event.target.value, t) }))
+    }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const validationErrors = validateForm(formData, t)
     setErrors(validationErrors)
-    setTouched({ name: true, email: true, message: true })
+    setTouched({ name: true, email: true, phone: true, requestType: true, message: true })
 
     if (Object.keys(validationErrors).length > 0) {
       return
@@ -107,16 +125,16 @@ export function ContactForm({ language, onSuccess }: ContactFormProps) {
     setStatus('loading')
 
     try {
-      const company = formData.company.trim()
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: formData.name.trim(),
           email: formData.email.trim(),
-          subject: company ? `Contactaanvraag — ${company}` : `Contactaanvraag — ${formData.name.trim()}`,
+          company: formData.company.trim(),
+          phone: formData.phone.trim(),
+          requestType: formData.requestType,
           message: formData.message.trim(),
-          ...(company ? { company } : {}),
         }),
       })
 
@@ -124,6 +142,7 @@ export function ContactForm({ language, onSuccess }: ContactFormProps) {
         throw new Error('Contact request failed')
       }
 
+      setSubmittedEmail(formData.email.trim())
       setStatus('success')
       setFormData(initialFormData)
       setErrors({})
@@ -134,14 +153,49 @@ export function ContactForm({ language, onSuccess }: ContactFormProps) {
     }
   }
 
+  const handleReset = () => {
+    setStatus('idle')
+    setSubmittedEmail('')
+    setFormData(initialFormData)
+    setErrors({})
+    setTouched({})
+    onReset?.()
+  }
+
   if (status === 'success') {
     return (
-      <p
+      <div
         role="status"
-        className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-center text-sm text-emerald-800"
+        className="rounded-xl border border-[#0078d4]/15 bg-slate-50 px-6 py-10 text-center sm:px-8"
       >
-        {t.success}
-      </p>
+        <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100">
+          <svg
+            className="h-7 w-7 text-emerald-600"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <path d="M20 6 9 17l-5-5" />
+          </svg>
+        </div>
+        <h3 className="text-xl font-semibold text-slate-900 sm:text-2xl">{t.successTitle}</h3>
+        <p className="mt-3 text-sm text-slate-600 sm:text-base">
+          {t.successEmailSent.replace('{email}', submittedEmail)}
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-slate-600 sm:text-base">{t.successPromise}</p>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+          <Link href="/" className="btn-primary text-sm">
+            {t.successBackHome}
+          </Link>
+          <button type="button" onClick={handleReset} className="btn-secondary text-sm">
+            {t.successNewRequest}
+          </button>
+        </div>
+      </div>
     )
   }
 
@@ -191,18 +245,66 @@ export function ContactForm({ language, onSuccess }: ContactFormProps) {
         </Field>
       </div>
 
-      <Field id="contact-company" label={t.companyLabel} optional optionalLabel={t.optionalLabel}>
-        <input
-          id="contact-company"
-          name="company"
-          type="text"
-          autoComplete="organization"
-          value={formData.company}
-          onChange={handleChange('company')}
-          onBlur={handleBlur('company')}
-          placeholder={t.companyPlaceholder}
-          className={inputClass('company')}
-        />
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field id="contact-company" label={t.companyLabel} optionalLabel={t.optionalLabel}>
+          <input
+            id="contact-company"
+            name="company"
+            type="text"
+            autoComplete="organization"
+            value={formData.company}
+            onChange={handleChange('company')}
+            onBlur={handleBlur('company')}
+            placeholder={t.companyPlaceholder}
+            className={inputClass('company')}
+          />
+        </Field>
+
+        <Field
+          id="contact-phone"
+          label={t.phoneLabel}
+          optionalLabel={t.optionalLabel}
+          error={showError('phone') ? errors.phone : undefined}
+        >
+          <input
+            id="contact-phone"
+            name="phone"
+            type="tel"
+            autoComplete="tel"
+            value={formData.phone}
+            onChange={handleChange('phone')}
+            onBlur={handleBlur('phone')}
+            placeholder={t.phonePlaceholder}
+            className={inputClass('phone')}
+            aria-invalid={showError('phone')}
+            aria-describedby={showError('phone') ? 'contact-phone-error' : undefined}
+          />
+        </Field>
+      </div>
+
+      <Field
+        id="contact-request-type"
+        label={t.requestTypeLabel}
+        optionalLabel={t.optionalLabel}
+        error={showError('requestType') ? errors.requestType : undefined}
+      >
+        <select
+          id="contact-request-type"
+          name="requestType"
+          value={formData.requestType}
+          onChange={handleChange('requestType')}
+          onBlur={handleBlur('requestType')}
+          className={inputClass('requestType')}
+          aria-invalid={showError('requestType')}
+          aria-describedby={showError('requestType') ? 'contact-request-type-error' : undefined}
+        >
+          <option value="">{t.requestTypePlaceholder}</option>
+          {REQUEST_TYPE_VALUES.map((value) => (
+            <option key={value} value={value}>
+              {typeLabels[value]}
+            </option>
+          ))}
+        </select>
       </Field>
 
       <Field
