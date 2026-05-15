@@ -135,6 +135,7 @@ export function ContactForm({ language, onSuccess, onReset }: ContactFormProps) 
           phone: formData.phone.trim(),
           requestType: formData.requestType,
           message: formData.message.trim(),
+          language,
         }),
       })
 

@@ -13,6 +13,8 @@ type AzureFunctionContext = {
   }
 }
 
+type MailLanguage = 'nl' | 'en'
+
 type ContactBody = {
   name?: string
   email?: string
@@ -20,6 +22,7 @@ type ContactBody = {
   company?: string
   phone?: string
   requestType?: string
+  language?: string
 }
 
 type ContactFields = {
@@ -27,8 +30,10 @@ type ContactFields = {
   email: string
   message: string
   requestType: string
+  requestTypeLabel: string
   company: string
   phone: string
+  language: MailLanguage
 }
 
 type SendResult =
@@ -37,8 +42,6 @@ type SendResult =
 
 const SENDER_ADDRESS = 'donotreply@dirkscloud.nl'
 const ADMIN_RECIPIENT = 'mdirks@dirkscloud.nl'
-const CONFIRMATION_SUBJECT = 'Ontvangstbevestiging — Dirks Cloud Engineering'
-const NOT_PROVIDED = 'Niet opgegeven'
 
 const VALID_REQUEST_TYPES = [
   'Cloud Migratie',
@@ -47,6 +50,82 @@ const VALID_REQUEST_TYPES = [
   'Infrastructure as Code',
   'Algemene Vraag',
 ] as const
+
+const REQUEST_TYPE_LABELS: Record<MailLanguage, Record<string, string>> = {
+  nl: {
+    'Cloud Migratie': 'Cloud Migratie',
+    'Security Audit': 'Security Audit',
+    'Azure Advies / Consultancy': 'Azure Advies / Consultancy',
+    'Infrastructure as Code': 'Infrastructure as Code',
+    'Algemene Vraag': 'Algemene Vraag',
+  },
+  en: {
+    'Cloud Migratie': 'Cloud Migration',
+    'Security Audit': 'Security Audit',
+    'Azure Advies / Consultancy': 'Azure Advisory / Consultancy',
+    'Infrastructure as Code': 'Infrastructure as Code',
+    'Algemene Vraag': 'General Inquiry',
+  },
+}
+
+const mailCopy = {
+  nl: {
+    notProvided: 'Niet opgegeven',
+    notApplicable: 'N.v.t.',
+    confirmationSubject: 'Ontvangstbevestiging — Dirks Cloud Engineering',
+    adminSubject: (requestType: string, name: string) => `[${requestType}] Contactaanvraag — ${name}`,
+    adminHeading: 'Nieuw contactformulier',
+    adminTagline: 'Dirks Cloud Engineering — dirkscloud.nl',
+    labels: {
+      name: 'Naam',
+      email: 'E-mail',
+      company: 'Bedrijfsnaam',
+      phone: 'Telefoonnummer',
+      requestType: 'Type aanvraag',
+      message: 'Bericht',
+    },
+    confirmation: {
+      title: 'Ontvangstbevestiging — Dirks Cloud Engineering',
+      greeting: (name: string) => `Beste ${name},`,
+      intro: 'Hartelijk dank voor uw contactaanvraag via <strong>dirkscloud.nl</strong>.',
+      body: (requestType: string) =>
+        `Wij hebben uw gegevens en de interesse in <strong>${requestType}</strong> in goede orde ontvangen. Maurits Dirks zal uw bericht persoonlijk beoordelen en binnen 24 uur contact met u opnemen om de verdere details te bespreken.`,
+      summaryTitle: 'Samenvatting aanvraag:',
+      summarySubject: 'Onderwerp',
+      summaryOrganization: 'Organisatie',
+      closing: 'Met vriendelijke groet,',
+      signature: 'Dirks Cloud Engineering',
+    },
+  },
+  en: {
+    notProvided: 'Not provided',
+    notApplicable: 'N/A',
+    confirmationSubject: 'Confirmation — Dirks Cloud Engineering',
+    adminSubject: (requestType: string, name: string) => `[${requestType}] Contact request — ${name}`,
+    adminHeading: 'New contact form submission',
+    adminTagline: 'Dirks Cloud Engineering — dirkscloud.nl',
+    labels: {
+      name: 'Name',
+      email: 'Email',
+      company: 'Company',
+      phone: 'Phone',
+      requestType: 'Request type',
+      message: 'Message',
+    },
+    confirmation: {
+      title: 'Confirmation — Dirks Cloud Engineering',
+      greeting: (name: string) => `Dear ${name},`,
+      intro: 'Thank you for contacting us via <strong>dirkscloud.nl</strong>.',
+      body: (requestType: string) =>
+        `We have received your details and your interest in <strong>${requestType}</strong>. Maurits Dirks will personally review your message and contact you within 24 hours to discuss the next steps.`,
+      summaryTitle: 'Request summary:',
+      summarySubject: 'Subject',
+      summaryOrganization: 'Organization',
+      closing: 'Kind regards,',
+      signature: 'Dirks Cloud Engineering',
+    },
+  },
+} as const
 
 function escapeHtml(value: string): string {
   return value
@@ -57,31 +136,36 @@ function escapeHtml(value: string): string {
     .replace(/'/g, '&#39;')
 }
 
-function displayOptional(value: string | undefined): string {
-  const trimmed = value?.trim() ?? ''
-  return trimmed ? escapeHtml(trimmed) : NOT_PROVIDED
+function parseLanguage(value: string | undefined): MailLanguage {
+  return value === 'en' ? 'en' : 'nl'
 }
 
 function buildAdminLeadHtml(data: ContactFields): string {
+  const copy = mailCopy[data.language]
   const line = (label: string, value: string) =>
     `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155"><strong>${label}:</strong> ${value}</p>`
 
+  const optionalValue = (value: string) => {
+    const trimmed = value.trim()
+    return trimmed ? escapeHtml(trimmed) : copy.notProvided
+  }
+
   const sections = [
-    line('Naam', escapeHtml(data.name)),
-    line('E-mail', `<a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a>`),
-    line('Bedrijfsnaam', displayOptional(data.company)),
-    line('Telefoonnummer', displayOptional(data.phone)),
-    line('Type aanvraag', escapeHtml(data.requestType)),
-    `<p style="margin:0 0 8px;font-size:14px;line-height:1.6;color:#334155"><strong>Bericht:</strong></p>
+    line(copy.labels.name, escapeHtml(data.name)),
+    line(copy.labels.email, `<a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a>`),
+    line(copy.labels.company, optionalValue(data.company)),
+    line(copy.labels.phone, optionalValue(data.phone)),
+    line(copy.labels.requestType, escapeHtml(data.requestTypeLabel)),
+    `<p style="margin:0 0 8px;font-size:14px;line-height:1.6;color:#334155"><strong>${copy.labels.message}:</strong></p>
      <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155;white-space:pre-wrap">${escapeHtml(data.message)}</p>`,
   ].join('')
 
   return `<!DOCTYPE html>
-<html lang="nl">
+<html lang="${data.language}">
   <body style="margin:0;padding:24px;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#333">
     <div style="max-width:600px;margin:0 auto;background:#fff;border:1px solid #eee;padding:20px;border-radius:8px">
-      <h2 style="margin:0 0 16px;font-size:18px;color:#0078d4">Nieuw contactformulier</h2>
-      <p style="margin:0 0 20px;font-size:13px;color:#64748b">Dirks Cloud Engineering — dirkscloud.nl</p>
+      <h2 style="margin:0 0 16px;font-size:18px;color:#0078d4">${copy.adminHeading}</h2>
+      <p style="margin:0 0 20px;font-size:13px;color:#64748b">${copy.adminTagline}</p>
       ${sections}
     </div>
   </body>
@@ -89,25 +173,26 @@ function buildAdminLeadHtml(data: ContactFields): string {
 }
 
 function buildConfirmationHtml(data: ContactFields): string {
-  const companyDisplay = data.company.trim() ? escapeHtml(data.company) : 'N.v.t.'
+  const copy = mailCopy[data.language].confirmation
+  const companyDisplay = data.company.trim() ? escapeHtml(data.company) : mailCopy[data.language].notApplicable
 
   return `<!DOCTYPE html>
-<html lang="nl">
+<html lang="${data.language}">
   <body style="margin:0;padding:24px;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#333">
     <div style="font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;color:#333;max-width:600px;border:1px solid #eee;padding:20px;background:#fff;border-radius:8px">
-      <h2 style="color:#0078d4;margin-top:0">Ontvangstbevestiging — Dirks Cloud Engineering</h2>
-      <p>Beste ${escapeHtml(data.name)},</p>
-      <p>Hartelijk dank voor uw contactaanvraag via <strong>dirkscloud.nl</strong>.</p>
-      <p>Wij hebben uw gegevens en de interesse in <strong>${escapeHtml(data.requestType)}</strong> in goede orde ontvangen. Maurits Dirks zal uw bericht persoonlijk beoordelen en binnen 24 uur contact met u opnemen om de verdere details te bespreken.</p>
+      <h2 style="color:#0078d4;margin-top:0">${copy.title}</h2>
+      <p>${copy.greeting(escapeHtml(data.name))}</p>
+      <p>${copy.intro}</p>
+      <p>${copy.body(escapeHtml(data.requestTypeLabel))}</p>
       <div style="background-color:#f4f4f4;padding:15px;border-radius:5px;margin:20px 0">
-        <h4 style="margin-top:0">Samenvatting aanvraag:</h4>
+        <h4 style="margin-top:0">${copy.summaryTitle}</h4>
         <ul style="list-style:none;padding:0;margin:0">
-          <li style="margin-bottom:8px"><strong>Onderwerp:</strong> ${escapeHtml(data.requestType)}</li>
-          <li><strong>Organisatie:</strong> ${companyDisplay}</li>
+          <li style="margin-bottom:8px"><strong>${copy.summarySubject}:</strong> ${escapeHtml(data.requestTypeLabel)}</li>
+          <li><strong>${copy.summaryOrganization}:</strong> ${companyDisplay}</li>
         </ul>
       </div>
-      <p>Met vriendelijke groet,</p>
-      <p><strong>Dirks Cloud Engineering</strong></p>
+      <p>${copy.closing}</p>
+      <p><strong>${copy.signature}</strong></p>
     </div>
   </body>
 </html>`
@@ -131,12 +216,15 @@ function parseContactFields(body: ContactBody): ContactFields | null {
   const requestType = body.requestType?.trim() ?? ''
   const company = body.company?.trim() ?? ''
   const phone = body.phone?.trim() ?? ''
+  const language = parseLanguage(body.language)
 
   if (!name || !email || !message || !requestType || !isValidRequestType(requestType)) {
     return null
   }
 
-  return { name, email, message, requestType, company, phone }
+  const requestTypeLabel = REQUEST_TYPE_LABELS[language][requestType] ?? requestType
+
+  return { name, email, message, requestType, requestTypeLabel, company, phone, language }
 }
 
 function formatError(error: unknown): string {
@@ -195,16 +283,18 @@ const httpTrigger = async function (context: AzureFunctionContext, req: HttpRequ
     const fields = parseContactFields(parseBody(req))
     if (!fields) {
       context.log.error(
-        'Invalid request body. Required: name, email, message, requestType (valid option). Optional: company, phone.',
+        'Invalid request body. Required: name, email, message, requestType (valid option). Optional: company, phone, language.',
       )
       context.res = { status: 500, body: { error: 'Invalid request payload' } }
       return
     }
 
-    const adminSubject = `[${fields.requestType}] Contactaanvraag — ${fields.name}`
+    const copy = mailCopy[fields.language]
+    const adminSubject = copy.adminSubject(fields.requestTypeLabel, fields.name)
+    const confirmationSubject = copy.confirmationSubject
 
     context.log(
-      `Preparing dual ACS emails — sender: ${SENDER_ADDRESS}, admin: ${ADMIN_RECIPIENT}, customer: ${fields.email}, requestType: ${fields.requestType}`,
+      `Preparing dual ACS emails — language: ${fields.language}, sender: ${SENDER_ADDRESS}, admin: ${ADMIN_RECIPIENT}, customer: ${fields.email}, requestType: ${fields.requestTypeLabel}`,
     )
 
     const emailClient = new EmailClient(connectionString)
@@ -224,7 +314,7 @@ const httpTrigger = async function (context: AzureFunctionContext, req: HttpRequ
       sendEmail(emailClient, {
         senderAddress: SENDER_ADDRESS,
         content: {
-          subject: CONFIRMATION_SUBJECT,
+          subject: confirmationSubject,
           html: buildConfirmationHtml(fields),
         },
         recipients: {
@@ -258,7 +348,7 @@ const httpTrigger = async function (context: AzureFunctionContext, req: HttpRequ
     }
 
     context.log(
-      `Both ACS emails sent successfully — adminMessageId: ${leadResult.messageId}, confirmationMessageId: ${confirmationResult.messageId}, requestType: ${fields.requestType}, admin: ${ADMIN_RECIPIENT}, customer: ${fields.email}`,
+      `Both ACS emails sent successfully — language: ${fields.language}, adminMessageId: ${leadResult.messageId}, confirmationMessageId: ${confirmationResult.messageId}, admin: ${ADMIN_RECIPIENT}, customer: ${fields.email}`,
     )
 
     context.res = {
