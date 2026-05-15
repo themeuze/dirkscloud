@@ -3,7 +3,6 @@
   "Values": {
     "AzureWebJobsStorage": "",
     "FUNCTIONS_WORKER_RUNTIME": "node",
-    "COMMUNICATION_SERVICES_CONNECTION_STRING": "<your-acs-connection-string>",
-    "ACS_SENDER_ADDRESS": "donotreply@dirkscloud.nl"
+    "COMMUNICATION_SERVICES_CONNECTION_STRING": "<your-acs-connection-string>"
   }
 }
