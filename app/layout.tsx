@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
+import { LanguageProvider } from '@/app/providers/LanguageProvider'
 import './globals.css'
 
 const inter = Inter({
@@ -56,7 +57,7 @@ export default function RootLayout({
             </p>
           </div>
         </noscript>
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   )
