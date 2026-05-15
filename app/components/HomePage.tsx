@@ -15,7 +15,10 @@ export function HomePage() {
     <div className="min-h-screen bg-slate-50">
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-md">
         <div className="site-container flex h-16 items-center justify-between gap-4">
-          <Link href="/" className="text-base font-semibold text-slate-900 sm:text-lg">
+          <Link href="/" className="inline-flex items-center text-base font-semibold text-slate-900 sm:text-lg">
+            <span className="mr-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-[#0078d4] text-xs font-bold text-white">
+              DCE
+            </span>
             {t.headerLogo}
           </Link>
           <nav className="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
@@ -76,9 +79,8 @@ export function HomePage() {
               ))}
             </div>
 
-            <div className="mt-16 grid gap-12 lg:grid-cols-2">
-              <div>
-                <h3 className="text-lg font-semibold text-slate-900">{t.azureTitle}</h3>
+            <div className="mt-16">
+              <h3 className="text-lg font-semibold text-slate-900">{t.azureTitle}</h3>
                 <ul className="mt-6 space-y-5">
                   {t.azureItems.map((item) => (
                     <li key={item.title} className="border-l-2 border-[#0078d4] pl-4">
@@ -86,19 +88,7 @@ export function HomePage() {
                       <p className="mt-1 text-sm leading-relaxed text-slate-600">{item.body}</p>
                     </li>
                   ))}
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-slate-900">{t.aiTitle}</h3>
-                <ul className="mt-6 space-y-5">
-                  {t.aiItems.map((item) => (
-                    <li key={item.title} className="border-l-2 border-violet-500 pl-4">
-                      <p className="font-medium text-slate-900">{item.title}</p>
-                      <p className="mt-1 text-sm leading-relaxed text-slate-600">{item.body}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              </ul>
             </div>
           </div>
         </section>

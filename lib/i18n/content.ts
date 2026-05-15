@@ -25,8 +25,6 @@ export type HomeContent = {
   skills: SkillBlock[]
   azureTitle: string
   azureItems: ServiceItem[]
-  aiTitle: string
-  aiItems: ServiceItem[]
   approachTitle: string
   approachItems: ServiceItem[]
   contactTitle: string
@@ -46,27 +44,21 @@ export const homeContent: Record<Language, HomeContent> = {
     navApproach: 'Werkwijze',
     navContact: 'Contact',
     headerCta: 'Neem contact op',
-    heroEyebrow: 'ZZP · Azure Cloud Engineering & Python AI',
-    heroH1: 'Senior ICT-expertise, direct inzetbaar',
+    heroEyebrow: 'ZZP · Azure Cloud Engineering & Beheer',
+    heroH1: 'Hands-on Azure capaciteit, direct inzetbaar',
     heroSubtitle:
-      'Als zelfstandig specialist help ik organisaties met Microsoft Azure en intelligente automatisering met Python en AI. Met 28 jaar ervaring in de IT lever ik concrete resultaten — helder, betrouwbaar en zonder onnodige overhead.',
+      'Als zelfstandig specialist help ik organisaties met het beheer, de beveiliging en de inrichting van Microsoft Azure. Met 28 jaar ervaring in de IT lever ik concrete resultaten — helder, betrouwbaar en zonder onnodige overhead.',
     heroCta: 'Plan een kennismaking',
-    skillsTitle: 'Kernexpertise',
+    skillsTitle: 'Azure Cloud Engineering & Support',
     skills: [
       {
-        title: 'Azure Cloud Engineering',
+        title: 'Azure Cloud Engineering & Support',
         description:
-          'Ontwerp, implementatie en beheer van veilige, schaalbare Azure-omgevingen. Van netwerk en identiteit tot kostenbeheersing en monitoring.',
-        tags: ['Landing Zones', 'FinOps', 'Entra ID', 'IaC', 'Security'],
-      },
-      {
-        title: 'Python & AI',
-        description:
-          'Automatisering en slimme oplossingen met Python. Integratie van Azure OpenAI en AI-workflows die repetitief werk verminderen.',
-        tags: ['Python', 'Azure OpenAI', 'Automatisering', 'API-integratie', 'Data pipelines'],
+          'Ontwerp, implementatie en beheer van veilige, schaalbare Azure-omgevingen. Van netwerk en identiteit tot kostenbeheersing, monitoring en troubleshooting.',
+        tags: ['Landing Zones', 'FinOps', 'Entra ID', 'IaC', 'Security', 'Troubleshooting'],
       },
     ],
-    azureTitle: 'Azure Cloud Engineering',
+    azureTitle: 'Azure Cloud Engineering & Support',
     azureItems: [
       {
         title: 'Architectuur & implementatie',
@@ -83,21 +75,6 @@ export const homeContent: Record<Language, HomeContent> = {
       {
         title: 'Operations & troubleshooting',
         body: 'Monitoring, incidenten en escalaties in de derde lijn — snel en doelgericht opgelost.',
-      },
-    ],
-    aiTitle: 'Python & AI',
-    aiItems: [
-      {
-        title: 'Procesautomatisering',
-        body: 'Scripts en workflows die handmatige Azure- en beheertaken overnemen.',
-      },
-      {
-        title: 'Azure OpenAI & AI-integratie',
-        body: 'Veilige inzet van AI-modellen binnen uw Azure-omgeving, met aandacht voor privacy en governance.',
-      },
-      {
-        title: 'Data & integratie',
-        body: 'Koppelingen tussen systemen, API\'s en cloudservices voor betrouwbare datastromen.',
       },
     ],
     approachTitle: 'Werkwijze',
@@ -119,7 +96,7 @@ export const homeContent: Record<Language, HomeContent> = {
     contactSubtitle:
       'Vertel kort waar u tegenaan loopt. Ik reageer binnen één werkdag met een voorstel voor vervolgstappen.',
     contactCta: 'mdirks@dirkscloud.nl',
-    footerLine: '© 2026 Dirks Cloud Engineering · ZZP Azure & Python AI',
+    footerLine: '© 2026 Dirks Cloud Engineering · ZZP Azure Cloud Engineering & Beheer',
     footerRegistryLabel: 'KvK',
     footerTermsLink: 'Algemene Voorwaarden',
     mailSubject: 'Kennismaking Dirks Cloud Engineering',
@@ -131,27 +108,21 @@ export const homeContent: Record<Language, HomeContent> = {
     navApproach: 'Approach',
     navContact: 'Contact',
     headerCta: 'Get in touch',
-    heroEyebrow: 'Freelance · Azure Cloud Engineering & Python AI',
-    heroH1: 'Senior IT expertise, ready when you are',
+    heroEyebrow: 'Freelance · Azure Cloud Engineering & Management',
+    heroH1: 'Hands-on Azure capacity, ready when you need it',
     heroSubtitle:
-      'As an independent specialist, I help organizations with Microsoft Azure and intelligent automation using Python and AI. With 28 years of IT experience, I deliver practical results — clear, reliable, and without unnecessary overhead.',
+      'As an independent specialist, I help organizations manage, secure, and configure Microsoft Azure. With 28 years of IT experience, I deliver practical results — clear, reliable, and without unnecessary overhead.',
     heroCta: 'Book an introductory call',
-    skillsTitle: 'Core expertise',
+    skillsTitle: 'Azure Cloud Engineering & Support',
     skills: [
       {
-        title: 'Azure Cloud Engineering',
+        title: 'Azure Cloud Engineering & Support',
         description:
-          'Design, implementation, and management of secure, scalable Azure environments. From networking and identity to cost control and monitoring.',
-        tags: ['Landing Zones', 'FinOps', 'Entra ID', 'IaC', 'Security'],
-      },
-      {
-        title: 'Python & AI',
-        description:
-          'Automation and smart solutions with Python. Integration of Azure OpenAI and AI workflows that reduce repetitive work.',
-        tags: ['Python', 'Azure OpenAI', 'Automation', 'API integration', 'Data pipelines'],
+          'Design, implementation, and management of secure, scalable Azure environments. From networking and identity to cost control, monitoring, and troubleshooting.',
+        tags: ['Landing Zones', 'FinOps', 'Entra ID', 'IaC', 'Security', 'Troubleshooting'],
       },
     ],
-    azureTitle: 'Azure Cloud Engineering',
+    azureTitle: 'Azure Cloud Engineering & Support',
     azureItems: [
       {
         title: 'Architecture & implementation',
@@ -168,21 +139,6 @@ export const homeContent: Record<Language, HomeContent> = {
       {
         title: 'Operations & troubleshooting',
         body: 'Monitoring, incidents, and third-line escalations — resolved quickly and effectively.',
-      },
-    ],
-    aiTitle: 'Python & AI',
-    aiItems: [
-      {
-        title: 'Process automation',
-        body: 'Scripts and workflows that take over manual Azure and operations tasks.',
-      },
-      {
-        title: 'Azure OpenAI & AI integration',
-        body: 'Secure use of AI models within your Azure environment, with attention to privacy and governance.',
-      },
-      {
-        title: 'Data & integration',
-        body: 'Connections between systems, APIs, and cloud services for reliable data flows.',
       },
     ],
     approachTitle: 'How I work',
@@ -204,7 +160,7 @@ export const homeContent: Record<Language, HomeContent> = {
     contactSubtitle:
       "Briefly describe your challenge. I'll respond within one business day with suggested next steps.",
     contactCta: 'mdirks@dirkscloud.nl',
-    footerLine: '© 2026 Dirks Cloud Engineering · Freelance Azure & Python AI',
+    footerLine: '© 2026 Dirks Cloud Engineering · Freelance Azure Cloud Engineering & Management',
     footerRegistryLabel: 'CoC',
     footerTermsLink: 'Terms and Conditions',
     mailSubject: 'Introduction Dirks Cloud Engineering',
