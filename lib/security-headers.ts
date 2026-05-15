@@ -2,7 +2,8 @@
 export const SECURITY_HEADERS: Record<string, string> = {
   'Content-Security-Policy': [
     "default-src 'self'",
-    "script-src 'self'",
+    // Next.js static export embeds small inline bootstrap scripts (RSC payload); no eval.
+    "script-src 'self' 'unsafe-inline'",
     "style-src 'self'",
     "img-src 'self' data:",
     "font-src 'self'",

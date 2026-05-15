@@ -16,3 +16,14 @@ html {
 body {
   @apply bg-[var(--color-surface)] text-slate-100 antialiased;
 }
+
+.noscript-fallback {
+  max-width: 48rem;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  line-height: 1.6;
+}
+
+.noscript-fallback a {
+  color: var(--color-accent);
+}

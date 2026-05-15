@@ -41,7 +41,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="nl" className={inter.variable}>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <noscript>
+          <div className="noscript-fallback">
+            <p>
+              Dirks Cloud Engineering — Senior Azure Capaciteit &amp; Architectuur. Schakel
+              JavaScript in of mail naar{' '}
+              <a href="mailto:mdirks@dirkscloud.nl">mdirks@dirkscloud.nl</a>.
+            </p>
+          </div>
+        </noscript>
+        {children}
+      </body>
     </html>
   )
 }

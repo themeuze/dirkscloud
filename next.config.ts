@@ -3,7 +3,6 @@ import { HEADER_ENTRIES } from './lib/security-headers'
 
 const nextConfig: NextConfig = {
   output: 'export',
-  trailingSlash: true,
   poweredByHeader: false,
   reactStrictMode: true,
   images: {
