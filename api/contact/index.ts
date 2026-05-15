@@ -1,15 +1,23 @@
 import type { HttpRequest } from '@azure/functions'
 import { EmailClient } from '@azure/communication-email'
 
-type ContactPayload = {
-  naam?: string
+type AzureFunctionContext = {
+  log: {
+    (...args: unknown[]): void
+    error: (...args: unknown[]) => void
+  }
+  res?: {
+    status?: number
+    headers?: Record<string, string>
+    body?: unknown
+  }
+}
+
+type ContactBody = {
   name?: string
   email?: string
-  onderwerp?: string
   subject?: string
-  bericht?: string
   message?: string
-  bedrijfsnaam?: string
   company?: string
 }
 
@@ -19,14 +27,6 @@ type ContactFields = {
   subject: string
   message: string
   company?: string
-}
-
-type FunctionContext = {
-  res?: {
-    status?: number
-    headers?: Record<string, string>
-    body?: unknown
-  }
 }
 
 const SENDER_ADDRESS = 'donotreply@dirkscloud.nl'
@@ -42,9 +42,8 @@ function escapeHtml(value: string): string {
 }
 
 function buildHtml(data: ContactFields): string {
-  const company = data.company?.trim()
-  const companyRow = company
-    ? `<tr><td style="padding:8px 12px;font-weight:600;color:#475569">Bedrijf</td><td style="padding:8px 12px">${escapeHtml(company)}</td></tr>`
+  const companyRow = data.company
+    ? `<tr><td style="padding:8px 12px;font-weight:600;color:#475569">Bedrijf</td><td style="padding:8px 12px">${escapeHtml(data.company)}</td></tr>`
     : ''
 
   return `<!DOCTYPE html>
@@ -73,103 +72,74 @@ function buildHtml(data: ContactFields): string {
 </html>`
 }
 
-function parseBody(req: HttpRequest): ContactPayload {
+function parseBody(req: HttpRequest): ContactBody {
   if (typeof req.body === 'string') {
-    return JSON.parse(req.body) as ContactPayload
+    return JSON.parse(req.body) as ContactBody
   }
-  return (req.body ?? {}) as ContactPayload
+  return (req.body ?? {}) as ContactBody
 }
 
-function normalizePayload(payload: ContactPayload): ContactFields | null {
-  const name = (payload.naam ?? payload.name)?.trim() ?? ''
-  const email = payload.email?.trim() ?? ''
-  const message = (payload.bericht ?? payload.message)?.trim() ?? ''
-  const subject =
-    (payload.onderwerp ?? payload.subject)?.trim() ||
-    (name ? `Contactaanvraag: ${name}` : 'Contactaanvraag via dirkscloud.nl')
-  const company = (payload.bedrijfsnaam ?? payload.company)?.trim()
+function parseContactFields(body: ContactBody): ContactFields | null {
+  const name = body.name?.trim() ?? ''
+  const email = body.email?.trim() ?? ''
+  const subject = body.subject?.trim() ?? ''
+  const message = body.message?.trim() ?? ''
+  const company = body.company?.trim()
 
-  if (!name || !email || !message) {
+  if (!name || !email || !subject || !message) {
     return null
   }
 
   return { name, email, subject, message, company: company || undefined }
 }
 
-function serializeError(error: unknown): Record<string, unknown> {
-  const output: Record<string, unknown> = {
-    message: error instanceof Error ? error.message : String(error),
-    stack: error instanceof Error ? error.stack : undefined,
-  }
-
+function formatError(error: unknown): string {
   if (error && typeof error === 'object') {
     const err = error as Record<string, unknown> & {
+      message?: string
       code?: string
       statusCode?: number
-      details?: unknown
       body?: unknown
-      response?: {
-        status?: number
-        bodyAsText?: string
-        parsedBody?: unknown
-      }
+      response?: { status?: number; bodyAsText?: string; parsedBody?: unknown }
     }
 
-    if (err.code) output.code = err.code
-    if (err.statusCode) output.statusCode = err.statusCode
-    if (err.details) output.details = err.details
-    if (err.body) output.body = err.body
-
-    if (err.response) {
-      output.responseStatus = err.response.status
-      output.responseBody = err.response.parsedBody ?? err.response.bodyAsText
-    }
-
-    try {
-      output.serialized = JSON.parse(
-        JSON.stringify(error, Object.getOwnPropertyNames(error as object)),
-      )
-    } catch {
-      output.serialized = String(error)
-    }
+    return JSON.stringify(
+      {
+        message: err.message ?? String(error),
+        code: err.code,
+        statusCode: err.statusCode,
+        body: err.body,
+        responseStatus: err.response?.status,
+        responseBody: err.response?.parsedBody ?? err.response?.bodyAsText,
+      },
+      null,
+      2,
+    )
   }
 
-  return output
+  return String(error)
 }
 
-const httpTrigger = async function (context: FunctionContext, req: HttpRequest): Promise<void> {
+const httpTrigger = async function (context: AzureFunctionContext, req: HttpRequest): Promise<void> {
   try {
     const connectionString = process.env.COMMUNICATION_SERVICES_CONNECTION_STRING
     if (!connectionString) {
-      console.error(
-        'COMMUNICATION_SERVICES_CONNECTION_STRING is not configured',
-        JSON.stringify({ senderAddress: SENDER_ADDRESS, recipientAddress: RECIPIENT_ADDRESS }, null, 2),
+      context.log.error(
+        'COMMUNICATION_SERVICES_CONNECTION_STRING is missing. Configure it in Azure Static Web App application settings.',
       )
       context.res = { status: 500, body: { error: 'Email service is not configured' } }
       return
     }
 
-    const fields = normalizePayload(parseBody(req))
+    const fields = parseContactFields(parseBody(req))
     if (!fields) {
-      context.res = {
-        status: 400,
-        body: { error: 'Missing required fields: naam/name, email, bericht/message' },
-      }
+      context.log.error('Invalid request body. Required fields: name, email, subject, message.')
+      context.res = { status: 500, body: { error: 'Invalid request payload' } }
       return
     }
 
-    console.log(
-      'ACS email send starting:',
-      JSON.stringify(
-        {
-          senderAddress: SENDER_ADDRESS,
-          recipientAddress: RECIPIENT_ADDRESS,
-          replyTo: fields.email,
-          subject: fields.subject,
-        },
-        null,
-        2,
-      ),
+    context.log(
+      `Preparing ACS email — sender: ${SENDER_ADDRESS}, recipient: ${RECIPIENT_ADDRESS}, subject: ${fields.subject}`,
     )
 
     const emailClient = new EmailClient(connectionString)
@@ -188,36 +158,15 @@ const httpTrigger = async function (context: FunctionContext, req: HttpRequest):
     const result = await poller.pollUntilDone()
 
     if (result.status !== 'Succeeded') {
-      console.error(
-        'ACS email send failed (full):',
-        JSON.stringify(
-          {
-            senderAddress: SENDER_ADDRESS,
-            recipientAddress: RECIPIENT_ADDRESS,
-            status: result.status,
-            messageId: result.id,
-            error: result.error,
-          },
-          null,
-          2,
-        ),
+      context.log.error(
+        `ACS email failed — status: ${result.status}, messageId: ${result.id ?? 'n/a'}, error: ${JSON.stringify(result.error ?? null)}`,
       )
-      context.res = { status: 502, body: { error: 'Failed to send email' } }
+      context.res = { status: 500, body: { error: 'Failed to send email' } }
       return
     }
 
-    console.log(
-      'ACS email sent successfully:',
-      JSON.stringify(
-        {
-          senderAddress: SENDER_ADDRESS,
-          recipientAddress: RECIPIENT_ADDRESS,
-          messageId: result.id,
-          status: result.status,
-        },
-        null,
-        2,
-      ),
+    context.log(
+      `ACS email sent — messageId: ${result.id}, sender: ${SENDER_ADDRESS}, recipient: ${RECIPIENT_ADDRESS}`,
     )
 
     context.res = {
@@ -226,18 +175,7 @@ const httpTrigger = async function (context: FunctionContext, req: HttpRequest):
       body: { success: true, messageId: result.id },
     }
   } catch (error) {
-    console.error(
-      'Contact function error (full):',
-      JSON.stringify(
-        {
-          senderAddress: SENDER_ADDRESS,
-          recipientAddress: RECIPIENT_ADDRESS,
-          error: serializeError(error),
-        },
-        null,
-        2,
-      ),
-    )
+    context.log.error(`Contact function exception: ${formatError(error)}`)
     context.res = { status: 500, body: { error: 'Internal server error' } }
   }
 }
