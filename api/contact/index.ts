@@ -93,6 +93,7 @@ const mailCopy = {
       summaryTitle: 'Samenvatting aanvraag:',
       summarySubject: 'Onderwerp',
       summaryOrganization: 'Organisatie',
+      summaryMessage: 'Bericht',
       closing: 'Met vriendelijke groet,',
       signature: 'Dirks Cloud Engineering',
     },
@@ -121,6 +122,7 @@ const mailCopy = {
       summaryTitle: 'Request summary:',
       summarySubject: 'Subject',
       summaryOrganization: 'Organization',
+      summaryMessage: 'Message',
       closing: 'Kind regards,',
       signature: 'Dirks Cloud Engineering',
     },
@@ -188,7 +190,8 @@ function buildConfirmationHtml(data: ContactFields): string {
         <h4 style="margin-top:0">${copy.summaryTitle}</h4>
         <ul style="list-style:none;padding:0;margin:0">
           <li style="margin-bottom:8px"><strong>${copy.summarySubject}:</strong> ${escapeHtml(data.requestTypeLabel)}</li>
-          <li><strong>${copy.summaryOrganization}:</strong> ${companyDisplay}</li>
+          <li style="margin-bottom:8px"><strong>${copy.summaryOrganization}:</strong> ${companyDisplay}</li>
+          <li><strong>${copy.summaryMessage}:</strong><br /><span style="white-space:pre-wrap">${escapeHtml(data.message)}</span></li>
         </ul>
       </div>
       <p>${copy.closing}</p>
