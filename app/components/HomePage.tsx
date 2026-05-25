@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { LanguageSwitcher } from '@/app/components/LanguageSwitcher'
 import { useLanguage } from '@/app/providers/LanguageProvider'
 import { ContactForm } from '@/app/components/ContactForm'
-import { KVK } from '@/lib/constants'
 import { homeContent } from '@/lib/i18n/content'
 
 export function HomePage() {
@@ -134,7 +133,7 @@ export function HomePage() {
         <div className="site-container flex flex-col gap-4 text-sm text-slate-500 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <p className="text-slate-700">{t.footerLine}</p>
           <p>
-            {t.footerRegistryLabel}: <span className="font-medium text-slate-700">{KVK}</span>
+            {t.footerRegistryLabel}: <span className="font-medium text-slate-700">{t.footerRegistryValue}</span>
           </p>
           <Link href="/voorwaarden/" className="font-medium text-[#0078d4] hover:underline">
             {t.footerTermsLink}

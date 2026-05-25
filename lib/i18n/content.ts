@@ -32,6 +32,7 @@ export type HomeContent = {
   contactCta: string
   footerLine: string
   footerRegistryLabel: string
+  footerRegistryValue: string
   footerTermsLink: string
   mailSubject: string
   termsBack: string
@@ -45,9 +46,9 @@ export const homeContent: Record<Language, HomeContent> = {
     navContact: 'Contact',
     headerCta: 'Neem contact op',
     heroEyebrow: 'ZZP · Azure Cloud Engineering & Beheer',
-    heroH1: 'Hands-on Azure capaciteit, direct inzetbaar',
+    heroH1: 'Hands-on Azure capaciteit vanaf 1 juli 2026',
     heroSubtitle:
-      'Als zelfstandig specialist help ik organisaties met het beheer, de beveiliging en de inrichting van Microsoft Azure. Met 28 jaar ervaring in de IT lever ik concrete resultaten — helder, betrouwbaar en zonder onnodige overhead.',
+      'Als zelfstandig specialist help ik organisaties met het beheer, de beveiliging en de inrichting van Microsoft Azure. Met een sterke achtergrond in enterprise-IT lever ik concrete resultaten — helder, betrouwbaar en zonder onnodige overhead.',
     heroCta: 'Plan een kennismaking',
     skillsTitle: 'Azure Cloud Engineering & Support',
     skills: [
@@ -98,6 +99,7 @@ export const homeContent: Record<Language, HomeContent> = {
     contactCta: 'mdirks@dirkscloud.nl',
     footerLine: '© 2026 Dirks Cloud Engineering · ZZP Azure Cloud Engineering & Beheer',
     footerRegistryLabel: 'KvK',
+    footerRegistryValue: 'Inschrijving gepland per 1 juli 2026',
     footerTermsLink: 'Algemene Voorwaarden',
     mailSubject: 'Kennismaking Dirks Cloud Engineering',
     termsBack: 'Terug naar home',
@@ -109,9 +111,9 @@ export const homeContent: Record<Language, HomeContent> = {
     navContact: 'Contact',
     headerCta: 'Get in touch',
     heroEyebrow: 'Freelance · Azure Cloud Engineering & Management',
-    heroH1: 'Hands-on Azure capacity, ready when you need it',
+    heroH1: 'Hands-on Azure capacity from 1 July 2026',
     heroSubtitle:
-      'As an independent specialist, I help organizations manage, secure, and configure Microsoft Azure. With 28 years of IT experience, I deliver practical results — clear, reliable, and without unnecessary overhead.',
+      'As an independent specialist, I help organizations manage, secure, and configure Microsoft Azure. With a strong enterprise IT background, I deliver practical results — clear, reliable, and without unnecessary overhead.',
     heroCta: 'Book an introductory call',
     skillsTitle: 'Azure Cloud Engineering & Support',
     skills: [
@@ -162,6 +164,7 @@ export const homeContent: Record<Language, HomeContent> = {
     contactCta: 'mdirks@dirkscloud.nl',
     footerLine: '© 2026 Dirks Cloud Engineering · Freelance Azure Cloud Engineering & Management',
     footerRegistryLabel: 'CoC',
+    footerRegistryValue: 'Registration planned from 1 July 2026',
     footerTermsLink: 'Terms and Conditions',
     mailSubject: 'Introduction Dirks Cloud Engineering',
     termsBack: 'Back to home',
