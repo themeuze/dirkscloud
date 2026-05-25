@@ -42,7 +42,7 @@ export const termsContent: Record<Language, TermsContent> = {
       {
         title: 'Artikel 4 — Tarieven en Betaling',
         paragraphs: [
-          'DCE werkt op uurbasis (uurtje-factuurtje), tenzij vooraf een vaste prijs of projectomvang schriftelijk is overeengekomen.',
+          'DCE werkt op uurbasis (inzet op basis van nacalculatie), tenzij vooraf een vaste prijs of projectomvang schriftelijk is overeengekomen.',
           'Facturatie geschiedt digitaal. De betalingstermijn bedraagt 14 dagen na factuurdatum, tenzij anders vermeld.',
           'Bij niet-tijdige betaling is de Opdrachtgever van rechtswege in verzuim. DCE mag werkzaamheden opschorten tot volledige betaling is ontvangen.',
         ],

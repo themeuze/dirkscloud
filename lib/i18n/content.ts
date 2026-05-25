@@ -82,7 +82,7 @@ export const homeContent: Record<Language, HomeContent> = {
     approachItems: [
       {
         title: 'Flexibel inzetbaar',
-        body: 'Uurtje-factuurtje of projectmatig. Als verlengstuk van uw team, wanneer u extra capaciteit nodig heeft.',
+        body: 'Inzet op basis van nacalculatie of projectmatig. Als verlengstuk van uw team, wanneer u extra capaciteit nodig heeft.',
       },
       {
         title: 'Nuchter en resultaatgericht',
@@ -147,7 +147,7 @@ export const homeContent: Record<Language, HomeContent> = {
     approachItems: [
       {
         title: 'Flexible engagement',
-        body: 'Hourly or project-based. An extension of your team when you need extra capacity.',
+        body: 'Time-and-materials or project-based. An extension of your team when you need extra capacity.',
       },
       {
         title: 'Clear and outcome-focused',
