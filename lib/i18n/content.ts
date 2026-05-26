@@ -46,43 +46,39 @@ export const homeContent: Record<Language, HomeContent> = {
     navContact: 'Contact',
     headerCta: 'Neem contact op',
     heroEyebrow: 'ZZP · Azure Cloud Engineering & Beheer',
-    heroH1: 'Hands-on Azure capaciteit vanaf 1 juli 2026',
+    heroH1: 'Flexibele Azure Cloud Engineer - Direct Beschikbaar.',
     heroSubtitle:
-      'Als zelfstandig specialist help ik organisaties met het beheer, de beveiliging en de inrichting van Microsoft Azure. Met een sterke achtergrond in enterprise-IT lever ik concrete resultaten — helder, betrouwbaar en zonder onnodige overhead.',
-    heroCta: 'Plan een kennismaking',
-    skillsTitle: 'Azure Cloud Engineering & Support',
+      'Ruime ervaring met IT-infrastructuur, direct inzetbaar als flexibele schil voor jouw IT-organisatie of MSP. Zoek je extra capaciteit voor Azure-beheer, migraties, het wegwerken van tickets of het oplossen van storingen? Ik spring flexibel bij waar het nodig is.',
+    heroCta: 'Extra handjes nodig op Azure?',
+    skillsTitle: 'Wat ik doe',
     skills: [
       {
         title: 'Azure Cloud Engineering & Support',
         description:
-          'Ontwerp, implementatie en beheer van veilige, schaalbare Azure-omgevingen. Van netwerk en identiteit tot kostenbeheersing, monitoring en troubleshooting.',
+          'Hands-on ondersteuning bij de dagelijkse operatie, het inrichten van resources, netwerken (VNETs), storage en Entra ID.',
         tags: ['Landing Zones', 'FinOps', 'Entra ID', 'IaC', 'Security', 'Troubleshooting'],
       },
     ],
-    azureTitle: 'Azure Cloud Engineering & Support',
+    azureTitle: 'Kernproposities',
     azureItems: [
       {
-        title: 'Architectuur & implementatie',
-        body: 'Landing zones, netwerk (VNET, peering, VPN), compute en opslag — ingericht volgens best practices.',
+        title: 'Azure Cloud Engineering & Beheer',
+        body: 'Hands-on ondersteuning bij de dagelijkse operatie, het inrichten van resources, netwerken (VNETs), storage en Entra ID.',
       },
       {
-        title: 'Security & governance',
-        body: 'Entra ID, RBAC, beleid en compliance-kaders (o.a. CIS, Zero Trust) praktisch toepasbaar maken.',
+        title: 'Tickets & Migraties Wegwerken',
+        body: 'Geen ingewikkelde adviestrajecten, maar gewoon meters maken en de werkdruk binnen jouw team verlagen.',
       },
       {
-        title: 'FinOps & optimalisatie',
-        body: 'Inzicht in verbruik en licenties, met advies dat u terugziet op de factuur.',
-      },
-      {
-        title: 'Operations & troubleshooting',
-        body: 'Monitoring, incidenten en escalaties in de derde lijn — snel en doelgericht opgelost.',
+        title: 'Flexibele Capaciteit',
+        body: 'Beschikbaar voor een vaste dag in de week, op projectbasis of op afroep bij escalaties (ook buiten standaard kantoortijden).',
       },
     ],
     approachTitle: 'Werkwijze',
     approachItems: [
       {
         title: 'Flexibel inzetbaar',
-        body: 'Inzet op basis van nacalculatie of projectmatig. Als verlengstuk van uw team, wanneer u extra capaciteit nodig heeft.',
+        body: 'Beschikbaar voor een vaste dag per week, flexibel tussendoor of op afroep wanneer jouw team extra capaciteit nodig heeft.',
       },
       {
         title: 'Nuchter en resultaatgericht',
@@ -94,8 +90,7 @@ export const homeContent: Record<Language, HomeContent> = {
       },
     ],
     contactTitle: 'Laten we kennismaken',
-    contactSubtitle:
-      'Vertel kort waar u tegenaan loopt. Ik reageer binnen één werkdag met een voorstel voor vervolgstappen.',
+    contactSubtitle: 'Extra handjes nodig op Azure? Neem direct contact op voor de mogelijkheden.',
     contactCta: 'mdirks@dirkscloud.nl',
     footerLine: '© 2026 Dirks Cloud Engineering · ZZP Azure Cloud Engineering & Beheer',
     footerRegistryLabel: 'KvK',
@@ -111,43 +106,39 @@ export const homeContent: Record<Language, HomeContent> = {
     navContact: 'Contact',
     headerCta: 'Get in touch',
     heroEyebrow: 'Freelance · Azure Cloud Engineering & Management',
-    heroH1: 'Hands-on Azure capacity from 1 July 2026',
+    heroH1: 'Flexible Azure Cloud Engineer - Available Immediately.',
     heroSubtitle:
-      'As an independent specialist, I help organizations manage, secure, and configure Microsoft Azure. With a strong enterprise IT background, I deliver practical results — clear, reliable, and without unnecessary overhead.',
-    heroCta: 'Book an introductory call',
-    skillsTitle: 'Azure Cloud Engineering & Support',
+      'Extensive experience in IT infrastructure, ready to support your IT organization or MSP. Looking for extra capacity for Azure administration, migrations, tackling tickets, or troubleshooting? I offer flexible support whenever and wherever you need it.',
+    heroCta: 'Need an extra pair of hands on Azure?',
+    skillsTitle: 'What I do',
     skills: [
       {
         title: 'Azure Cloud Engineering & Support',
         description:
-          'Design, implementation, and management of secure, scalable Azure environments. From networking and identity to cost control, monitoring, and troubleshooting.',
+          'Hands-on daily operational support, resource deployment, networking (VNETs), storage, and Entra ID.',
         tags: ['Landing Zones', 'FinOps', 'Entra ID', 'IaC', 'Security', 'Troubleshooting'],
       },
     ],
-    azureTitle: 'Azure Cloud Engineering & Support',
+    azureTitle: 'Core propositions',
     azureItems: [
       {
-        title: 'Architecture & implementation',
-        body: 'Landing zones, networking (VNET, peering, VPN), compute, and storage — built to best practices.',
+        title: 'Azure Cloud Engineering & Administration',
+        body: 'Hands-on daily operational support, resource deployment, networking (VNETs), storage, and Entra ID.',
       },
       {
-        title: 'Security & governance',
-        body: 'Entra ID, RBAC, policy, and compliance frameworks (e.g. CIS, Zero Trust) applied in practice.',
+        title: 'Resolving Backlogs & Migrations',
+        body: "Pragmatic execution to reduce your team's workload and get things done.",
       },
       {
-        title: 'FinOps & optimization',
-        body: 'Visibility into usage and licensing, with advice you can see on your invoice.',
-      },
-      {
-        title: 'Operations & troubleshooting',
-        body: 'Monitoring, incidents, and third-line escalations — resolved quickly and effectively.',
+        title: 'Flexible Capacity',
+        body: 'Available for a fixed day per week, on a project basis, or on-demand for escalations (including off-hours support).',
       },
     ],
     approachTitle: 'How I work',
     approachItems: [
       {
         title: 'Flexible engagement',
-        body: 'Time-and-materials or project-based. An extension of your team when you need extra capacity.',
+        body: 'Available for a fixed day per week, flexible in-between, or on-demand when your team needs extra capacity.',
       },
       {
         title: 'Clear and outcome-focused',
@@ -159,8 +150,7 @@ export const homeContent: Record<Language, HomeContent> = {
       },
     ],
     contactTitle: "Let's connect",
-    contactSubtitle:
-      "Briefly describe your challenge. I'll respond within one business day with suggested next steps.",
+    contactSubtitle: 'Need an extra pair of hands on Azure? Get in touch today to discuss how I can help.',
     contactCta: 'mdirks@dirkscloud.nl',
     footerLine: '© 2026 Dirks Cloud Engineering · Freelance Azure Cloud Engineering & Management',
     footerRegistryLabel: 'CoC',
